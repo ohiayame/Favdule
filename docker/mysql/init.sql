@@ -1,4 +1,6 @@
-CREATE DATABASE IF NOT EXISTS myapp;
+CREATE DATABASE IF NOT EXISTS myapp
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_general_ci;
 
 USE myapp;
 
@@ -12,7 +14,7 @@ CREATE TABLE users (
   name VARCHAR(100),
   picture_url TEXT,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Refresh Tokens 
 CREATE TABLE refresh_tokens (
@@ -23,7 +25,7 @@ CREATE TABLE refresh_tokens (
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   UNIQUE KEY uniq_user_token (user_id, token),
   CONSTRAINT fk_refresh_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- -------------------------------
 -- Channel 관련
@@ -34,14 +36,14 @@ CREATE TABLE user_groups (
   user_id INT NOT NULL,
   name VARCHAR(100),
   CONSTRAINT fk_group_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Channels (channelId 저장 테이블)
 CREATE TABLE channels (
   id INT AUTO_INCREMENT PRIMARY KEY,
   channelId VARCHAR(255) UNIQUE,
   name VARCHAR(100)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Group_Channels (각 id저장 - 중간 테이블)
 CREATE TABLE group_channels (
@@ -51,7 +53,7 @@ CREATE TABLE group_channels (
   UNIQUE KEY uniq_group_channel (group_id, channel_id),
   CONSTRAINT fk_gc_group FOREIGN KEY (group_id) REFERENCES user_groups(id) ON DELETE CASCADE,
   CONSTRAINT fk_gc_channel FOREIGN KEY (channel_id) REFERENCES channels(id) ON DELETE CASCADE
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Users
 INSERT INTO users (email, name, picture_url) VALUES
