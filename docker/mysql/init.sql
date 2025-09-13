@@ -3,9 +3,9 @@ CREATE DATABASE IF NOT EXISTS myapp;
 USE myapp;
 
 
----------------------------------
+-- -------------------------------
 -- USERS
---------------------------------
+-- ------------------------------
 CREATE TABLE users (
   id INT AUTO_INCREMENT PRIMARY KEY,
   email VARCHAR(255) NOT NULL UNIQUE,
@@ -18,18 +18,18 @@ CREATE TABLE users (
 CREATE TABLE refresh_tokens (
   id INT AUTO_INCREMENT PRIMARY KEY,
   user_id INT NOT NULL,
-  token TEXT NOT NULL,
+  token VARCHAR(512) NOT NULL,
   expires_at DATETIME,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   UNIQUE KEY uniq_user_token (user_id, token),
   CONSTRAINT fk_refresh_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
----------------------------------
+-- -------------------------------
 -- Channel 관련
---------------------------------
+-- ------------------------------
 -- Groups (사용자의 채널 리스트)
-CREATE TABLE groups (
+CREATE TABLE user_groups (
   id INT AUTO_INCREMENT PRIMARY KEY,
   user_id INT NOT NULL,
   name VARCHAR(100),
@@ -39,7 +39,7 @@ CREATE TABLE groups (
 -- Channels (channelId 저장 테이블)
 CREATE TABLE channels (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  channelId TEXT UNIQUE,
+  channelId VARCHAR(255) UNIQUE,
   name VARCHAR(100)
 );
 
@@ -49,7 +49,7 @@ CREATE TABLE group_channels (
   group_id INT NOT NULL,
   channel_id INT NOT NULL,
   UNIQUE KEY uniq_group_channel (group_id, channel_id),
-  CONSTRAINT fk_gc_group FOREIGN KEY (group_id) REFERENCES groups(id) ON DELETE CASCADE,
+  CONSTRAINT fk_gc_group FOREIGN KEY (group_id) REFERENCES user_groups(id) ON DELETE CASCADE,
   CONSTRAINT fk_gc_channel FOREIGN KEY (channel_id) REFERENCES channels(id) ON DELETE CASCADE
 );
 
@@ -65,7 +65,7 @@ INSERT INTO refresh_tokens (user_id, token, expires_at) VALUES
 (2, 'token_bob_456', '2025-12-31 23:59:59');
 
 -- Groups
-INSERT INTO groups (user_id, name) VALUES
+INSERT INTO user_groups (user_id, name) VALUES
 (1, 'Alice의 즐겨찾기'),
 (1, 'Alice의 음악 채널'),
 (2, 'Bob의 게임 채널 모음'),

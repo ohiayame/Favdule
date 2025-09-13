@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { RouterData } from "@/routes/RouterData";
+import Login from "@/components/Login";
 
 function Sidebar() {
   const [open, setOpen] = useState(false);
@@ -8,10 +11,19 @@ function Sidebar() {
       <button onClick={() => setOpen(!open)}>메뉴</button>
 
       {open && (
-        <div style={{ background: "#ddd" }}>
-          <p>홈</p>
-          <p>그룹</p>
-          <p>검색</p>
+        <div>
+          {/* 로그인 정보 */}
+          <Login />
+
+          <nav>
+            <ul>
+              {RouterData.map((route, idx) => (
+                <li key={idx}>
+                  <Link to={route.link}>{route.title}</Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
         </div>
       )}
     </div>

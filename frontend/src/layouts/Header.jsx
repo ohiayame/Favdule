@@ -1,8 +1,13 @@
 import Sidebar from "@/layouts/Sidebar";
+import HomeFiltering from "@/pages/Home/HomeFiltering";
 
-function Header() {
+function Header({ title }) {
   return (
-    <header>
+    <header style={{ backgroundColor: "#daeeffff" }}>
+      <h1>{title}</h1>
+
+      {title === "Home" && <HomeFiltering />}
+
       <Sidebar />
     </header>
   );

@@ -1,16 +1,11 @@
 import Header from "@/layouts/Header";
-import Footer from "@/layouts/Footer";
 
-function Layout() {
+function Layout({ title, children }) {
   return (
     <>
-      <Header />
+      <Header title={title} />
 
-      <main>
-        <p>Container</p>
-      </main>
-
-      <Footer />
+      <main style={{ backgroundColor: "#ffdaf9ff" }}>{children}</main>
     </>
   );
 }
