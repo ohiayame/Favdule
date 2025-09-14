@@ -1,9 +1,9 @@
 import express from "express";
-import { searchVideos } from "../controllers/youtubeController.js";
+import { searchChannels } from "../controllers/youtubeController.js";
 
 const router = express.Router();
 
 // 영상 검색
-router.get("/search", searchVideos);
+router.get("/search", searchChannels);
 
 export default router;
