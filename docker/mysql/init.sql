@@ -42,7 +42,8 @@ CREATE TABLE user_groups (
 CREATE TABLE channels (
   id INT AUTO_INCREMENT PRIMARY KEY,
   channelId VARCHAR(255) UNIQUE,
-  name VARCHAR(100)
+  name VARCHAR(100),
+  img VARCHAR(255)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Group_Channels (각 id저장 - 중간 테이블)

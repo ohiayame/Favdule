@@ -1,17 +1,26 @@
 import Layout from "@/layouts/Layout";
 import { useState } from "react";
 import { getChannels } from "@/api/channelsApi";
+import Modal from "react-modal";
+import ModalGroup from "@/pages/Search/ModalGroup";
 
 function SearchPage() {
-  const [q, setQ] = useState("");
-  const [channels, setChannels] = useState([]);
+  const [q, setQ] = useState(""); // 검색어
+  const [channels, setChannels] = useState([]); // 조회한 채널
+  const [isOpen, setIsOpen] = useState(false); // 모달 상태
+  const [selectedChannel, setSelectedChannel] = useState();
 
+  // 채널 조회
   const fetchChannels = async () => {
-    console.log(q);
+    // console.log(q);
     const resChannels = await getChannels(q);
-    console.log(resChannels);
+
+    // console.log(resChannels);
     setChannels(resChannels);
   };
+
+  // modal 닫기
+  const handleClose = () => setIsOpen(false);
 
   return (
     <Layout title="Groups">
@@ -31,12 +40,28 @@ function SearchPage() {
                 alt={channel.snippet.title}
               />
               <p>{channel.snippet.title}</p>
+              <button
+                onClick={() => {
+                  setSelectedChannel(channel);
+                  setIsOpen(true);
+                }}
+              >
+                추가
+              </button>
             </li>
           ))}
         </ul>
       )}
 
-      {/* 사용자가 구독하고 있는 채널 출력 */}
+      {/* 그룹에 추가 */}
+      <Modal isOpen={isOpen}>
+        {selectedChannel && (
+          <ModalGroup channel={selectedChannel} onClose={handleClose} />
+        )}
+        <button onClick={handleClose}>close</button>
+      </Modal>
+
+      {/* 사용자가 구독하고 있는 채널 출력 (SubscChannel.jsx) */}
     </Layout>
   );
 }
