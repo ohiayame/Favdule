@@ -1,4 +1,8 @@
-import { GetUserGroups, GetSelectGroups } from "../models/groups.js";
+import {
+  GetUserGroups,
+  GetSelectGroups,
+  RenameGroup,
+} from "../models/groups.js";
 import {
   GetChannels,
   GetChannelsId,
@@ -6,9 +10,9 @@ import {
   AddGroupChannels,
 } from "../models/channels.js";
 
-// ---------------------
+// ---------------------------------------------------------
 // 사용자의 전체 그룹 조회
-// ---------------------
+// ---------------------------------------------------------
 export const getUserGroups = async (req, res) => {
   const { userId } = req.params;
 
@@ -18,9 +22,9 @@ export const getUserGroups = async (req, res) => {
   res.json(groups);
 };
 
-// --------------------
+// ---------------------------------------------------------
 // 그룹의 전체 채널 조회
-// --------------------
+// ---------------------------------------------------------
 export const getGroupChannels = async (req, res) => {
   const { groupId } = req.params;
 
@@ -55,9 +59,9 @@ export const getOrCreateChannelsIdANDgetGroups = async (req, res) => {
   res.json({ groups: groups, channel_id: c_id });
 };
 
-// -------------------
+// ---------------------------------------------------------
 // 채널을 그룹에 추가
-// -------------------
+// ---------------------------------------------------------
 export const postGroupsChannel = async (req, res) => {
   console.log(req.body);
   const groupsIds = req.body.groupIds; // 배열
@@ -70,4 +74,15 @@ export const postGroupsChannel = async (req, res) => {
 
   console.log("추가 완료");
   res.json({ success: true });
+};
+
+// ---------------------------------------------------------
+// Rename Group
+// ---------------------------------------------------------
+export const patchGroupName = async (req, res) => {
+  const { groupId } = req.params;
+  const group_name = req.body.name;
+  // 수정
+  await RenameGroup(groupId, group_name);
+  res.json(group_name);
 };

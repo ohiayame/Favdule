@@ -1,8 +1,8 @@
 import db from "../config/db.js";
 
-// --------------------------
-// 특정 유저의 그룹 조회 (모두)
-// --------------------------
+// ---------------------------------------------------------
+// GET : 특정 유저의 그룹 조회 (모두)
+// ---------------------------------------------------------
 export const GetUserGroups = async (id) => {
   // console.log("id:", id);
   try {
@@ -19,9 +19,9 @@ export const GetUserGroups = async (id) => {
   }
 };
 
-// ------------------------------------------------------
-// 특정 유저의 그룹 조회 (channel이 저장되어 있는 그룹 제외)
-// ------------------------------------------------------
+// ---------------------------------------------------------
+// GET : 특정 유저의 그룹 조회 (channel이 저장되어 있는 그룹 제외)
+// ---------------------------------------------------------
 export const GetSelectGroups = async (user_id, channel_Id) => {
   try {
     const [rows] = await db.query(
@@ -38,4 +38,14 @@ export const GetSelectGroups = async (user_id, channel_Id) => {
   } catch (err) {
     console.error("DB Error:", err);
   }
+};
+
+// ---------------------------------------------------------
+// PATCH : Rename group
+// ---------------------------------------------------------
+export const RenameGroup = async (group_id, group_name) => {
+  await db.query("UPDATE user_groups SET name = ? WHERE id = ?", [
+    group_name,
+    group_id,
+  ]);
 };
