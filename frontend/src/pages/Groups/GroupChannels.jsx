@@ -1,31 +1,49 @@
 import { useState } from "react";
-import { getGroupChannels } from "@/api/groupsApi";
+import { getGroupChannels, deleteChannel } from "@/api/groupsApi";
 import { useEffect } from "react";
 
 function GroupChannels({ groupId }) {
   const [channels, setChannels] = useState([]);
 
   // 해당 그룹의 채널 조회
+  const fetchChannels = async () => {
+    const resChannels = await getGroupChannels(groupId);
+    console.log(resChannels);
+    setChannels(resChannels);
+  };
+
   useEffect(() => {
-    const fetchChannels = async () => {
-      const resChannels = await getGroupChannels(groupId);
-      console.log(resChannels);
-      setChannels(resChannels);
-    };
     fetchChannels();
   }, [groupId]);
+
+  // 채널 삭제
+  const handleDeleteChannel = async (channel_id) => {
+    const isDelete = await deleteChannel(groupId, channel_id);
+    console.log(isDelete);
+    if (isDelete) {
+      fetchChannels();
+    }
+  };
 
   return (
     <div>
       {/* 채널 출력 */}
       {channels && (
-        <ul>
+        <table>
           {channels.map((channel) => (
-            <li key={channel.id}>
-              <p>{channel.channel_name}</p>
-            </li>
+            <tr key={channel.id}>
+              <td>
+                <img src={channel.img} alt={channel.channel_name} />
+              </td>
+              <td>{channel.channel_name}</td>
+              <td>
+                <button onClick={() => handleDeleteChannel(channel.id)}>
+                  삭제
+                </button>
+              </td>
+            </tr>
           ))}
-        </ul>
+        </table>
       )}
     </div>
   );

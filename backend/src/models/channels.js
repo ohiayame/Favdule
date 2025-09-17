@@ -1,13 +1,13 @@
 import db from "../config/db.js";
 
-// --------------------
+// ---------------------------------------------------------
 // 특정 그룹의 채널 조회
-// --------------------
+// ---------------------------------------------------------
 export const GetChannels = async (groupId) => {
   console.log("groupId: ", groupId);
   try {
     const [rows] = await db.query(
-      "SELECT c.id, c.name AS channel_name, c.channelId\
+      "SELECT c.id, c.name AS channel_name, c.channelId, c.img\
         FROM group_channels gc\
         JOIN channels c ON gc.channel_id = c.id\
         WHERE gc.group_id = ?",
@@ -20,9 +20,9 @@ export const GetChannels = async (groupId) => {
   }
 };
 
-// ----------------------
+// ---------------------------------------------------------
 // group_channels에 추가
-// ----------------------
+// ---------------------------------------------------------
 export const AddGroupChannels = async (g_id, c_id) => {
   try {
     await db.query(
@@ -36,9 +36,9 @@ export const AddGroupChannels = async (g_id, c_id) => {
   }
 };
 
-// --------------------------------------------
+// ---------------------------------------------------------
 // channels테이블에 id 조회 (channel이 존재하는지)
-// --------------------------------------------
+// ---------------------------------------------------------
 export const GetChannelsId = async (channelId) => {
   console.log("channelId: ", channelId);
   try {
@@ -53,9 +53,9 @@ export const GetChannelsId = async (channelId) => {
   }
 };
 
-// -----------------------------------
+// ---------------------------------------------------------
 // channel 정보를 channels테이블에 추가
-// -----------------------------------
+// ---------------------------------------------------------
 export const AddChannel = async (channel) => {
   const channelId = channel.channelId;
   const name = channel.title;
@@ -68,6 +68,21 @@ export const AddChannel = async (channel) => {
     );
     // id값 반환
     return result.insertId;
+  } catch (err) {
+    console.error("DB Error:", err);
+  }
+};
+
+// ---------------------------------------------------------
+// group_channels에서 삭제
+// ---------------------------------------------------------
+export const DeleteGroupChannel = async (groupId, channel_id) => {
+  try {
+    await db.query(
+      "DELETE FROM group_channels WHERE group_id = ? AND channel_id = ?",
+      [groupId, channel_id]
+    );
+    return true;
   } catch (err) {
     console.error("DB Error:", err);
   }

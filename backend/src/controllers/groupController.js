@@ -8,6 +8,7 @@ import {
   GetChannelsId,
   AddChannel,
   AddGroupChannels,
+  DeleteGroupChannel,
 } from "../models/channels.js";
 
 // ---------------------------------------------------------
@@ -85,4 +86,13 @@ export const patchGroupName = async (req, res) => {
   // 수정
   await RenameGroup(groupId, group_name);
   res.json(group_name);
+};
+
+// ---------------------------------------------------------
+// delete channel
+// ---------------------------------------------------------
+export const deleteChannel = async (req, res) => {
+  const { groupId, channel_id } = req.params;
+  const response = await DeleteGroupChannel(groupId, channel_id);
+  res.json(response);
 };

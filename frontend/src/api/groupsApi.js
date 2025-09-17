@@ -49,3 +49,13 @@ export const patchGroupName = async (groupId, name) => {
   const res = await api.patch(`/groups/${groupId}`, { name });
   return res.data;
 };
+
+
+// ========================== DELETE ===============================
+// ----------------
+// 그룹의 채널 삭제
+// ----------------
+export const deleteChannel = async (groupId, channel_id) => {
+  const res = await api.delete(`/groups/${groupId}/channels/${channel_id}`);
+  return res.data;
+};
