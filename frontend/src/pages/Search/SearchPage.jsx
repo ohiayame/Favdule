@@ -31,28 +31,33 @@ function SearchPage() {
       <button onClick={fetchChannels}>갬색</button>
 
       {/* 검색 결과 출력 */}
-      {channels && (
-        <ul>
-          {channels.map((channel) => (
-            <li key={channel.id.channelId}>
-              <img
-                src={channel.snippet.thumbnails.medium.url}
-                alt={channel.snippet.title}
-              />
-              <p>{channel.snippet.title}</p>
-              <button
-                onClick={() => {
-                  setSelectedChannel(channel);
-                  setIsOpen(true);
-                }}
-              >
-                추가
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
-
+      <div>
+        {channels && (
+          <table>
+            {channels.map((channel) => (
+              <tr key={channel.id.channelId}>
+                <td>
+                  <img
+                    src={channel.snippet.thumbnails.medium.url}
+                    alt={channel.snippet.title}
+                  />
+                </td>
+                <td>{channel.snippet.title}</td>
+                <td>
+                  <button
+                    onClick={() => {
+                      setSelectedChannel(channel);
+                      setIsOpen(true);
+                    }}
+                  >
+                    추가
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </table>
+        )}
+      </div>
       {/* 그룹에 추가 */}
       <Modal isOpen={isOpen}>
         {selectedChannel && (
