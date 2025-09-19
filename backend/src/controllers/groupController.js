@@ -10,6 +10,8 @@ import {
   AddGroupChannels,
   DeleteGroupChannel,
 } from "../models/channels.js";
+import { format, addDays } from "date-and-time";
+import { searchVideos } from "../controllers/youtubeController.js";
 
 // ---------------------------------------------------------
 // 사용자의 전체 그룹 조회
@@ -28,7 +30,7 @@ export const getUserGroups = async (req, res) => {
 // ---------------------------------------------------------
 export const getGroupChannels = async (req, res) => {
   const { groupId } = req.params;
-
+  console.log("groupId", groupId);
   const channels = await GetChannels(groupId);
   res.json(channels);
 };
@@ -96,3 +98,74 @@ export const deleteChannel = async (req, res) => {
   const response = await DeleteGroupChannel(groupId, channel_id);
   res.json(response);
 };
+
+// ---------------------------------------------------------
+// 그룹의 영상 조회
+// ---------------------------------------------------------
+// 1) 그룹의 channelId조회
+export const getGroupVideos = async (req, res) => {
+  const { groupId } = req.params;
+  const channels = await GetChannels(groupId);
+
+  let result = null;
+  const now = new Date(); // 현재
+  const yesterdayStart = getKSTMidnightRFC3339(now, -1);
+  const tomorrowEnd = getKSTMidnightRFC3339(now, 2);
+
+  // 2) 각 채널의 어제 ~ 내일의 영상 조회
+  const videos = await Promise.all(
+    channels.map(async (channel) => {
+      return await searchVideos(channel.channelId, yesterdayStart, tomorrowEnd);
+    })
+  );
+  // console.log("videos", videos.flat());
+  result = videos.flat();
+  // 시간 축으로 정렬
+  const sortResult = result.sort(
+    (a, b) => new Date(a.snippet.publishedAt) - new Date(b.snippet.publishedAt)
+  );
+
+  // 어제, 오늘 내일로 분할
+  const resList = { yesterday: [], today: [], tomorrow: [] }; // 반환할 객체
+  const yesterday_today = new Date(getKSTMidnightRFC3339(now)); // 어제까지
+  const today_tomorrow = new Date(getKSTMidnightRFC3339(now, 1)); // 오늘까지
+  // 시간축으로 정렬한 영상들을 날짜별로 분할
+  sortResult.map((vi) => {
+    const videoTime = new Date(vi.snippet.publishedAt);
+    if (yesterday_today > videoTime) {
+      // 어제
+      resList.yesterday.push(vi);
+    } else if (today_tomorrow > videoTime) {
+      // 오늘
+      resList.today.push(vi);
+    } else {
+      // 어제
+      resList.tomorrow.push(vi);
+    }
+  });
+
+  console.log("result", resList);
+  res.json(resList);
+};
+
+// ---------------------------------------------------------
+// 시간 계산 함수
+// ---------------------------------------------------------
+function getKSTMidnightRFC3339(baseDate, offsetDays = 0) {
+  const target = addDays(baseDate, offsetDays);
+
+  // 한국 기준 0시
+  const kstMidnight = new Date(
+    target.getFullYear(),
+    target.getMonth(),
+    target.getDate(),
+    0,
+    0,
+    0
+  );
+
+  // UTC 변환 (KST = UTC+9 → 9시간 빼줌)
+  const utcTime = new Date(kstMidnight.getTime() - 9 * 60 * 60 * 1000);
+
+  return utcTime.toISOString();
+}

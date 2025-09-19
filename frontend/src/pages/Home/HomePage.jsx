@@ -1,39 +1,44 @@
 import Layout from "@/layouts/Layout";
 import DayContainer from "./DayContainer";
 import { useState } from "react";
-import { getGroupChannels } from "@/api/groupsApi";
+import { getVideos } from "@/api/groupsApi";
 import { useEffect } from "react";
 
 function Home() {
   const [groupId, setGroupId] = useState(1);
-  const [channels, setChannels] = useState([]);
+  // 영상 정보 저장
+  const [yesterday, setYesterday] = useState();
+  const [today, setToday] = useState();
+  const [tomorrow, setTomorrow] = useState();
 
-  // 채널 조회
-  const fetchChannels = async () => {
-    const resChannels = await getGroupChannels(groupId);
-    console.log("groupId:", groupId, " channel:", resChannels);
-    setChannels(resChannels);
+  // 채널의 영상 나눠서 조회 후 셋 (어제, 오늘, 내일)
+  const fetchVideos = async (g_id = groupId) => {
+    const { yesterday, today, tomorrow } = await getVideos(g_id);
+    console.log("yesterday", g_id);
+    setYesterday(yesterday);
+    setToday(today);
+    setTomorrow(tomorrow);
   };
 
   // HomeFiltering에서 groupId 선택후 셋 -> 채널 조회
   const handleGroup = (g_id) => {
     setGroupId(g_id);
     if (g_id) {
-      fetchChannels();
+      fetchVideos(g_id);
     }
   };
   useEffect(() => {
-    fetchChannels();
+    fetchVideos();
   }, []);
 
   return (
     <Layout title="Home" groupId={groupId} onFilterChange={handleGroup}>
       <p>home</p>
-      <DayContainer day="어제" />
+      <DayContainer day="어제" videos={yesterday} />
       <hr />
-      <DayContainer day="오늘" />
+      <DayContainer day="오늘" videos={today} />
       <hr />
-      <DayContainer day="내일" />
+      <DayContainer day="내일" videos={tomorrow} />
     </Layout>
   );
 }

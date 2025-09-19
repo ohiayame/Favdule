@@ -17,6 +17,14 @@ export const getGroupChannels = async (groupId) => {
   return res.data;
 };
 
+// --------------------
+// 해딩 그룹의 영상 조회
+// --------------------
+export const getVideos = async (groupId) => {
+  const res = await api.get(`/groups/${groupId}/channels/videos`);
+  return res.data;
+};
+
 // ========================== POST ===============================
 // --------------------------------
 // 채널 추가/ id, 추가 가능 그룹 조회
@@ -49,7 +57,6 @@ export const patchGroupName = async (groupId, name) => {
   const res = await api.patch(`/groups/${groupId}`, { name });
   return res.data;
 };
-
 
 // ========================== DELETE ===============================
 // ----------------
