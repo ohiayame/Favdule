@@ -10,8 +10,8 @@ import {
   AddGroupChannels,
   DeleteGroupChannel,
 } from "../models/channels.js";
-import { format, addDays } from "date-and-time";
-import { searchVideos } from "../controllers/youtubeController.js";
+import { addDays } from "date-and-time";
+import { searchVideos, v_info } from "../controllers/youtubeController.js";
 
 // ---------------------------------------------------------
 // 사용자의 전체 그룹 조회
@@ -108,64 +108,105 @@ export const getGroupVideos = async (req, res) => {
   const channels = await GetChannels(groupId);
 
   let result = null;
-  const now = new Date(); // 현재
-  const yesterdayStart = getKSTMidnightRFC3339(now, -1);
-  const tomorrowEnd = getKSTMidnightRFC3339(now, 2);
 
-  // 2) 각 채널의 어제 ~ 내일의 영상 조회
+  // 2) 각 채널의 최근에 업로드된 영상 10개 조회
   const videos = await Promise.all(
     channels.map(async (channel) => {
-      return await searchVideos(channel.channelId, yesterdayStart, tomorrowEnd);
+      return await searchVideos(channel.channelId);
     })
   );
   // console.log("videos", videos.flat());
   result = videos.flat();
-  // 시간 축으로 정렬
-  const sortResult = result.sort(
-    (a, b) => new Date(a.snippet.publishedAt) - new Date(b.snippet.publishedAt)
+
+  // 3) videoId로 liveStreamingDetails를 검색해서 방송 및 방송예정 시간을 조회
+  const v_Id = result.map((v) => v.id.videoId);
+  const v_li = await v_info(v_Id);
+  // console.log("v_li", v_li.liveStreamingDetails);
+
+  // 4) 시간축이로 정렬
+  // - 방송시작 후면 actualStartTime
+  // - 방송예정이면 scheduledStartTime
+  // - liveStreamingDetails 없는 영상
+  const sortV_li = v_li.sort(
+    (a, b) =>
+      new Date(
+        a.liveStreamingDetails?.actualStartTime ??
+          a.liveStreamingDetails?.scheduledStartTime ??
+          a.snippet.publishedAt
+      ) -
+      new Date(
+        b.liveStreamingDetails?.actualStartTime ??
+          b.liveStreamingDetails?.scheduledStartTime ??
+          b.snippet.publishedAt
+      )
   );
 
-  // 어제, 오늘 내일로 분할
+  // 필요한 정보 추출 후 저장
+  let pushVideo = [];
+
+  // 5) 데이터 수정, 추출 후 저장
+  sortV_li.map((vi) => {
+    //  RFC 3339형식의 데이터에서 한국기준의 날짜와 시간을 추출 {day:"00-00", time: "00:00"}
+    const krVideoTime = getDayTime(
+      new Date(
+        vi.liveStreamingDetails?.actualStartTime ??
+          vi.liveStreamingDetails?.scheduledStartTime ??
+          vi.snippet.publishedAt
+      )
+    );
+    // console.log("krVideoTime", krVideoTime);
+
+    // 6) 데이터 정리 후 저장
+    // 체널 이름, 영상 제목, 썸네일, 시간({day:"00-00", time: "00:00"})
+    pushVideo.push({
+      channelTitle: vi.snippet.channelTitle,
+      title: vi.snippet.localized.title,
+      thumbnails: vi.snippet.thumbnails.medium.url,
+      time: krVideoTime,
+    });
+  });
+
+  // 7) 날짜 계산
+  const now = new Date(); // 현재
+  // console.log("today");
+  const today = getDayTime(now); // 오늘 {day:"00-00", time: "00:00"}
+  // console.log("minDay");
+  const minDay = getDayTime(addDays(now, -1)); // 어제 {day:"00-00", time: "00:00"}
+  // console.log("maxDay");
+  const maxDay = getDayTime(addDays(now, +1)); // // 내일 {day:"00-00", time: "00:00"}
+
+  // 8) 어제, 오늘 내일로 분할
   const resList = { yesterday: [], today: [], tomorrow: [] }; // 반환할 객체
-  const yesterday_today = new Date(getKSTMidnightRFC3339(now)); // 어제까지
-  const today_tomorrow = new Date(getKSTMidnightRFC3339(now, 1)); // 오늘까지
-  // 시간축으로 정렬한 영상들을 날짜별로 분할
-  sortResult.map((vi) => {
-    const videoTime = new Date(vi.snippet.publishedAt);
-    if (yesterday_today > videoTime) {
-      // 어제
+
+  pushVideo.map((vi) => {
+    // 날짜가 같은 데에 추가
+    if (minDay.day === vi.time.day) {
       resList.yesterday.push(vi);
-    } else if (today_tomorrow > videoTime) {
-      // 오늘
+    } else if (today.day === vi.time.day) {
       resList.today.push(vi);
-    } else {
-      // 어제
+    } else if (maxDay.day === vi.time.day) {
       resList.tomorrow.push(vi);
     }
   });
-
-  console.log("result", resList);
+  // console.log("result", resList);
   res.json(resList);
 };
 
 // ---------------------------------------------------------
 // 시간 계산 함수
 // ---------------------------------------------------------
-function getKSTMidnightRFC3339(baseDate, offsetDays = 0) {
-  const target = addDays(baseDate, offsetDays);
-
-  // 한국 기준 0시
-  const kstMidnight = new Date(
-    target.getFullYear(),
-    target.getMonth(),
-    target.getDate(),
-    0,
-    0,
-    0
+function getDayTime(baseDate) {
+  // 받아온 baseDate를 "Asia/Seoul"로 변환
+  const kst = new Date(
+    baseDate.toLocaleString("en-US", { timeZone: "Asia/Seoul" })
   );
+  // 변환
+  // 예)  2026-09-09T22:10:00Z
+  // slice 5~6 -> 09-09, 11~16 -> 22:10
+  const strKst = kst.toISOString();
+  const day = strKst.slice(5, 10);
+  const time = strKst.slice(11, 16);
 
-  // UTC 변환 (KST = UTC+9 → 9시간 빼줌)
-  const utcTime = new Date(kstMidnight.getTime() - 9 * 60 * 60 * 1000);
-
-  return utcTime.toISOString();
+  // console.log("baseDate", baseDate, "day", day, time);
+  return { day, time };
 }
