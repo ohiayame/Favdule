@@ -53,23 +53,23 @@ function ModalGroup({ channel, onClose }) {
       <p>Groups</p>
 
       {groups.length === 0 && <p>추가 가능한 그룹 없음</p>}
-
-      {/* 사용자의 그룹 출력 */}
-      {groups.map((group) => (
-        <div key={group.id}>
-          <input
-            type="checkbox"
-            id={group.id}
-            value={group.id}
-            onChange={handleCbChange}
-            // selectedGroups에 id가 있으면 true
-            checked={selectedGroups.includes(group.id)}
-          />
-          <label>{group.group_name}</label>
-
-          <button onClick={handleSubmit}>추가</button>
-        </div>
-      ))}
+      <div>
+        {/* 사용자의 그룹 출력 */}
+        {groups.map((group) => (
+          <div key={group.id}>
+            <input
+              type="checkbox"
+              id={group.id}
+              value={group.id}
+              onChange={handleCbChange}
+              // selectedGroups에 id가 있으면 true
+              checked={selectedGroups.includes(group.id)}
+            />
+            <label>{group.group_name}</label>
+          </div>
+        ))}
+        <button onClick={handleSubmit}>추가</button>
+      </div>
     </>
   );
 }

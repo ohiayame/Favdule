@@ -69,16 +69,15 @@ INSERT INTO refresh_tokens (user_id, token, expires_at) VALUES
 
 -- Groups
 INSERT INTO user_groups (user_id, name) VALUES
-(1, 'Alice의 즐겨찾기'),
-(1, 'Alice의 음악 채널'),
-(2, 'Bob의 게임 채널 모음'),
-(3, 'Carol의 공부 채널');
+(1, 'Alice Group1'),
+(1, 'Alice'),
+(2, 'Bob Group1'),
+(3, 'Carol Group1');
 
 -- Channels
 INSERT INTO channels (channelId, name) VALUES
 ('UCJFZiqLMntJufDCHc6bQixg', 'Hololive Official'),
 ('UC1DCedRgGHBdm81E1llLhOQ', 'Usada Pekora'),
-('UC-hM6YJuNYVAmUWxeIr9FeA', 'Hoshimachi Suisei'),
 ('UCdyqAaZDKHXg4Ahi7VENThQ', 'Inugami Korone'),
 ('UC1opHUrw8rvnsadT-iGp7Cg', 'Tokino Sora');
 
@@ -86,6 +85,5 @@ INSERT INTO channels (channelId, name) VALUES
 INSERT INTO group_channels (group_id, channel_id) VALUES
 (1, 1),  -- Alice의 즐겨찾기 ← Hololive Official
 (1, 2),  -- Alice의 즐겨찾기 ← Usada Pekora
-(2, 3),  -- Alice의 음악 채널 ← Hoshimachi Suisei
-(3, 4),  -- Bob의 게임 채널 모음 ← Inugami Korone
-(4, 5);  -- Carol의 공부 채널 ← Tokino Sora
+(3, 3),  -- Bob의 게임 채널 모음 ← Inugami Korone
+(4, 4);  -- Carol의 공부 채널 ← Tokino Sora

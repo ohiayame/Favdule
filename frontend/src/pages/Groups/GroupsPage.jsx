@@ -35,7 +35,7 @@ function GroupsPage() {
   // ------------------------------------
   const handleSelectChange = (e) => {
     const val = Number(e.target.value);
-    setGroupId(Number(e.target.value));
+    setGroupId(val);
 
     // group_name 저장
     const selectedGroup = groups.find((g) => g.id === val);
