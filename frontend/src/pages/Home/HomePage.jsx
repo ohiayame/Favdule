@@ -7,9 +7,9 @@ import { useEffect } from "react";
 function Home() {
   const [groupId, setGroupId] = useState(1);
   // 영상 정보 저장
-  const [yesterday, setYesterday] = useState();
-  const [today, setToday] = useState();
-  const [tomorrow, setTomorrow] = useState();
+  const [yesterday, setYesterday] = useState([]);
+  const [today, setToday] = useState([]);
+  const [tomorrow, setTomorrow] = useState([]);
 
   // 채널의 영상 나눠서 조회 후 셋 (어제, 오늘, 내일)
   const fetchVideos = async (g_id = groupId) => {
@@ -34,11 +34,11 @@ function Home() {
   return (
     <Layout title="Home" groupId={groupId} onFilterChange={handleGroup}>
       <p>home</p>
-      <DayContainer day="어제" videos={yesterday} />
+      <DayContainer day="yesterday" videos={yesterday} />
       <hr />
-      <DayContainer day="오늘" videos={today} />
+      <DayContainer day="today" videos={today} />
       <hr />
-      <DayContainer day="내일" videos={tomorrow} />
+      <DayContainer day="tomorrow" videos={tomorrow} />
     </Layout>
   );
 }

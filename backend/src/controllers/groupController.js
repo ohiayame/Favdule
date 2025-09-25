@@ -111,33 +111,32 @@ export const getGroupVideos = async (req, res) => {
 
   // 2) 각 채널의 최근에 업로드된 영상 10개 조회
   const videos = await Promise.all(
-    channels.map(async (channel) => {
-      return await searchVideos(channel.channelId);
+    channels?.map(async (channel) => {
+      const video = await searchVideos(channel.channelId);
+      // 3) videoId로 liveStreamingDetails를 검색해서 방송 및 방송예정 시간을 조회
+      const v_Id = video.map((v) => v.id.videoId);
+      return await v_info(v_Id);
     })
   );
   // console.log("videos", videos.flat());
   result = videos.flat();
-
-  // 3) videoId로 liveStreamingDetails를 검색해서 방송 및 방송예정 시간을 조회
-  const v_Id = result.map((v) => v.id.videoId);
-  const v_li = await v_info(v_Id);
-  // console.log("v_li", v_li.liveStreamingDetails);
+  console.log("video", result[4]);
 
   // 4) 시간축이로 정렬
   // - 방송시작 후면 actualStartTime
   // - 방송예정이면 scheduledStartTime
   // - liveStreamingDetails 없는 영상
-  const sortV_li = v_li.sort(
+  const sortV_li = result.sort(
     (a, b) =>
       new Date(
         a.liveStreamingDetails?.actualStartTime ??
           a.liveStreamingDetails?.scheduledStartTime ??
-          a.snippet.publishedAt
+          a.snippet?.publishedAt
       ) -
       new Date(
         b.liveStreamingDetails?.actualStartTime ??
           b.liveStreamingDetails?.scheduledStartTime ??
-          b.snippet.publishedAt
+          b.snippet?.publishedAt
       )
   );
 
@@ -151,13 +150,13 @@ export const getGroupVideos = async (req, res) => {
       new Date(
         vi.liveStreamingDetails?.actualStartTime ??
           vi.liveStreamingDetails?.scheduledStartTime ??
-          vi.snippet.publishedAt
+          vi.snippet?.publishedAt
       )
     );
     // console.log("krVideoTime", krVideoTime);
 
     // 6) 데이터 정리 후 저장
-    // 체널 이름, 영상 제목, 썸네일, 시간({day:"00-00", time: "00:00"})
+    // 체널 이름, 영상 제목, 썸네일, 시간({date:"00-00", time: "00:00"})
     pushVideo.push({
       channelTitle: vi.snippet.channelTitle,
       title: vi.snippet.localized.title,
@@ -176,19 +175,19 @@ export const getGroupVideos = async (req, res) => {
   const maxDay = getDayTime(addDays(now, +1)); // // 내일 {day:"00-00", time: "00:00"}
 
   // 8) 어제, 오늘 내일로 분할
-  const resList = { yesterday: [], today: [], tomorrow: [] }; // 반환할 객체
+  const resList = { yesterday: [minDay], today: [today], tomorrow: [maxDay] }; // 반환할 객체
 
   pushVideo.map((vi) => {
     // 날짜가 같은 데에 추가
-    if (minDay.day === vi.time.day) {
+    if (minDay.date === vi.time.date) {
       resList.yesterday.push(vi);
-    } else if (today.day === vi.time.day) {
+    } else if (today.date === vi.time.date) {
       resList.today.push(vi);
-    } else if (maxDay.day === vi.time.day) {
+    } else if (maxDay.date === vi.time.date) {
       resList.tomorrow.push(vi);
     }
   });
-  // console.log("result", resList);
+  console.log("result", resList);
   res.json(resList);
 };
 
@@ -204,9 +203,9 @@ function getDayTime(baseDate) {
   // 예)  2026-09-09T22:10:00Z
   // slice 5~6 -> 09-09, 11~16 -> 22:10
   const strKst = kst.toISOString();
-  const day = strKst.slice(5, 10);
+  const date = strKst.slice(5, 10);
   const time = strKst.slice(11, 16);
 
-  // console.log("baseDate", baseDate, "day", day, time);
-  return { day, time };
+  // console.log("baseDate", baseDate, "date", date, time);
+  return { date, time };
 }

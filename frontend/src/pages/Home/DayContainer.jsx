@@ -4,9 +4,14 @@ function DayContainer({ day, videos }) {
   console.log(day, ": videos", videos);
   return (
     <div style={{ backgroundColor: "#d8ffe4ff" }}>
-      <p>날짜 - {day} -</p>
+      <p>
+        {day} - {videos[0]?.date} -
+      </p>
       {/* 영상의 갯수 만큼 카드컨테이너 출력 */}
-      {videos && videos.map((video) => <VideoCard video={video} />)}
+      {videos &&
+        videos
+          .slice(1)
+          .map((video) => <VideoCard video={video} key={video.title} />)}
     </div>
   );
 }
