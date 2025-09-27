@@ -34,27 +34,36 @@ function SearchPage() {
       <div>
         {channels && (
           <table>
-            {channels.map((channel) => (
-              <tr key={channel.id.channelId}>
-                <td>
-                  <img
-                    src={channel.snippet.thumbnails.medium.url}
-                    alt={channel.snippet.title}
-                  />
-                </td>
-                <td>{channel.snippet.title}</td>
-                <td>
-                  <button
-                    onClick={() => {
-                      setSelectedChannel(channel);
-                      setIsOpen(true);
-                    }}
-                  >
-                    추가
-                  </button>
-                </td>
+            <thead>
+              <tr>
+                <th>이미지</th>
+                <th>이름</th>
+                <th>삭제</th>
               </tr>
-            ))}
+            </thead>
+            <tbody>
+              {channels.map((channel) => (
+                <tr key={channel.id.channelId}>
+                  <td>
+                    <img
+                      src={channel.snippet.thumbnails.medium.url}
+                      alt={channel.snippet.title}
+                    />
+                  </td>
+                  <td>{channel.snippet.title}</td>
+                  <td>
+                    <button
+                      onClick={() => {
+                        setSelectedChannel(channel);
+                        setIsOpen(true);
+                      }}
+                    >
+                      추가
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
           </table>
         )}
       </div>

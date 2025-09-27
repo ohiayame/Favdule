@@ -30,19 +30,28 @@ function GroupChannels({ groupId }) {
       {/* 채널 출력 */}
       {channels && (
         <table>
-          {channels.map((channel) => (
-            <tr key={channel.id}>
-              <td>
-                <img src={channel.img} alt={channel.channel_name} />
-              </td>
-              <td>{channel.channel_name}</td>
-              <td>
-                <button onClick={() => handleDeleteChannel(channel.id)}>
-                  삭제
-                </button>
-              </td>
+          <thead>
+            <tr>
+              <th>이미지</th>
+              <th>이름</th>
+              <th>삭제</th>
             </tr>
-          ))}
+          </thead>
+          <tbody>
+            {channels.map((channel) => (
+              <tr key={channel.id}>
+                <td>
+                  <img src={channel.img} alt={channel.channel_name} />
+                </td>
+                <td>{channel.channel_name}</td>
+                <td>
+                  <button onClick={() => handleDeleteChannel(channel.id)}>
+                    삭제
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
         </table>
       )}
     </div>
