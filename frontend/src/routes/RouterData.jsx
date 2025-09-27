@@ -1,6 +1,7 @@
 import HomePage from "@/pages/Home/HomePage";
 import GroupsPage from "@/pages/Groups/GroupsPage";
 import SearchPage from "@/pages/Search/SearchPage";
+import CallbackPage from "@/components/CallbackPage";
 
 export const RouterData = [
   {
@@ -17,5 +18,9 @@ export const RouterData = [
     title: "Search",
     element: <SearchPage />,
     link: "/search",
+  },
+  {
+    element: <CallbackPage />,
+    link: "/callback",
   },
 ];

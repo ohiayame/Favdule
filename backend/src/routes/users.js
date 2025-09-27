@@ -1,9 +1,12 @@
 import express from "express";
-import { getUser } from "../controllers/userController.js";
+import { postLogin, getUser } from "../controllers/userController.js";
 
 const router = express.Router();
 
+// 로그인
+router.post("/", postLogin);
+
 // 사용자 정보 조회
-router.get("/:userId", getUser);
+router.get("/:google_id", getUser);
 
 export default router;

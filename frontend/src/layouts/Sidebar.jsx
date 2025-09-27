@@ -17,11 +17,14 @@ function Sidebar() {
 
           <nav>
             <ul>
-              {RouterData.map((route, idx) => (
-                <li key={idx}>
-                  <Link to={route.link}>{route.title}</Link>
-                </li>
-              ))}
+              {RouterData.map(
+                (route, idx) =>
+                  route.title && (
+                    <li key={idx}>
+                      <Link to={route.link}>{route.title}</Link>
+                    </li>
+                  )
+              )}
             </ul>
           </nav>
         </div>

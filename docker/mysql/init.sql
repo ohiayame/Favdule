@@ -10,6 +10,7 @@ USE myapp;
 -- ------------------------------
 CREATE TABLE users (
   id INT AUTO_INCREMENT PRIMARY KEY,
+  google_id VARCHAR(30) NOT NULL UNIQUE,
   email VARCHAR(255) NOT NULL UNIQUE,
   name VARCHAR(100),
   picture_url TEXT,
@@ -57,10 +58,10 @@ CREATE TABLE group_channels (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Users
-INSERT INTO users (email, name, picture_url) VALUES
-('alice@example.com', 'Alice', 'https://example.com/img/alice.png'),
-('bob@example.com', 'Bob', 'https://example.com/img/bob.png'),
-('carol@example.com', 'Carol', 'https://example.com/img/carol.png');
+INSERT INTO users (google_id, email, name, picture_url) VALUES
+('1234', 'alice@example.com', 'Alice', 'https://example.com/img/alice.png'),
+('4567', 'bob@example.com', 'Bob', 'https://example.com/img/bob.png'),
+('7890', 'carol@example.com', 'Carol', 'https://example.com/img/carol.png');
 
 -- Refresh Tokens
 INSERT INTO refresh_tokens (user_id, token, expires_at) VALUES

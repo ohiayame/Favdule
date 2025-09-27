@@ -1,0 +1,48 @@
+import { useState, useEffect } from "react";
+import { Navigate } from "react-router-dom";
+import { getLogin } from "@/api/userApi";
+import { useAuthStore } from "../store/auth";
+
+function CallbackPage() {
+  // store
+  const setUser = useAuthStore((state) => state.setUser);
+  const user = useAuthStore((state) => state.user);
+  // user정보 저장되면 true
+  const [done, setDone] = useState(false);
+
+  // URL 해시에서 access_token 추출
+  // -> 백앤드에서 사용자 정보 조회
+  useEffect(() => {
+    const handleAuth = async () => {
+      if (window.location.hash) {
+        const params = new URLSearchParams(window.location.hash.substring(1));
+        const token = params.get("access_token");
+        if (token) {
+          //   localStorage.setItem("access_token", token);
+          //   console.log(token);
+          // 사용지 정보 조회 (추가)
+          const userData = await getLogin(token);
+          console.log("로그인된 사용자:", userData);
+          // useAuthStore에 저장
+          setUser(userData);
+        }
+      }
+    };
+
+    handleAuth();
+  }, [setUser]);
+
+  // user정보 갱신되면 실행
+  useEffect(() => {
+    if (user) {
+      console.log("상태가 갱신된 사용자:", user);
+      setDone(true);
+    }
+  }, [user]);
+
+  // user정보있으면 메인에 이동
+  if (done && user) return <Navigate to="/search" replace />;
+  return <div>대기</div>;
+}
+
+export default CallbackPage;
