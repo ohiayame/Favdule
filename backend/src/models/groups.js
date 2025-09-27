@@ -49,3 +49,12 @@ export const RenameGroup = async (group_id, group_name) => {
     group_id,
   ]);
 };
+
+// ---------------------------------------------------------
+// POST : group 추가
+// ---------------------------------------------------------
+export const AddGroup = async (user_id, group_name) => {
+  await db.query("INSERT INTO user_groups (user_id, name) VALUE (?, ?)",
+    [user_id, group_name]
+  );
+};

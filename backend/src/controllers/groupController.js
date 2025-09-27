@@ -2,6 +2,7 @@ import {
   GetUserGroups,
   GetSelectGroups,
   RenameGroup,
+  AddGroup,
 } from "../models/groups.js";
 import {
   GetChannels,
@@ -80,13 +81,16 @@ export const postGroupsChannel = async (req, res) => {
 };
 
 // ---------------------------------------------------------
-// Rename Group
+// Rename Group / Add Group
 // ---------------------------------------------------------
 export const patchGroupName = async (req, res) => {
   const { groupId } = req.params;
   const group_name = req.body.name;
-  // 수정
-  await RenameGroup(groupId, group_name);
+  const user_id = req.body.user_id;
+  console.log("groupId", groupId, user_id);
+  // 수정 / 추가
+  if (groupId != "null") await RenameGroup(groupId, group_name);
+  else await AddGroup(user_id, group_name);
   res.json(group_name);
 };
 

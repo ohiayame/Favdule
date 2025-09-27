@@ -50,11 +50,11 @@ export const postGroupsChannel = async (groupIds, channel_id) => {
 };
 
 // ========================== PATCH ===============================
-//----------------
-// 그룹 이름 수정
-//----------------
-export const patchGroupName = async (groupId, name) => {
-  const res = await api.patch(`/groups/${groupId}`, { name });
+//-----------------------
+// 그룹 이름 셋 / 그룹 추가
+//-----------------------
+export const setGroupName = async (groupId, name, user_id) => {
+  const res = await api.patch(`/groups/${groupId}`, { name, user_id });
   return res.data;
 };
 
