@@ -5,7 +5,7 @@ import { getVideos } from "@/api/groupsApi";
 import { useEffect } from "react";
 
 function Home() {
-  const [groupId, setGroupId] = useState(1);
+  const [groupId, setGroupId] = useState(null);
   // 영상 정보 저장
   const [yesterday, setYesterday] = useState([]);
   const [today, setToday] = useState([]);

@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { getUserGroups } from "@/api/groupsApi";
+import { useAuthStore } from "@/store/auth";
 
 function HomeFiltering({ groupId, onFilterChange }) {
   const [groups, setGroups] = useState([]);
-  const id = 1;
+  const user = useAuthStore((state) => state.user);
+  const id = user.id;
 
   // ------------------------------------
   // 사용자 그룹 조회
@@ -13,6 +15,7 @@ function HomeFiltering({ groupId, onFilterChange }) {
       const resGroups = await getUserGroups(id);
       console.log(resGroups);
       setGroups(resGroups);
+      onFilterChange(resGroups[0].id);
     } catch (error) {
       console.error("Error fetching groups:", error);
     }
@@ -20,7 +23,7 @@ function HomeFiltering({ groupId, onFilterChange }) {
 
   useEffect(() => {
     fetchGroups();
-  }, [id]);
+  }, []);
 
   // ------------------------------------
   // select에서 groupId set

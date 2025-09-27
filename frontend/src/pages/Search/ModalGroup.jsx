@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
 import { getChannelsIdANDGroup, postGroupsChannel } from "@/api/groupsApi";
+import { useAuthStore } from "@/store/auth";
 
 function ModalGroup({ channel, onClose }) {
   const [groups, setGroups] = useState([]);
   const [selectedGroups, setSelectedGroups] = useState([]);
   const [channel_id, setChannel_id] = useState();
-  const id = 1;
+  const user = useAuthStore((state) => state.user);
 
   // 1) 사용자 그룹 조회
   useEffect(() => {
     const fetchGroups = async () => {
       try {
-        const resGroups = await getChannelsIdANDGroup(id, channel);
+        const resGroups = await getChannelsIdANDGroup(user.id, channel);
         // console.log(resGroups);
         setGroups(resGroups.groups);
         setChannel_id(resGroups.channel_id);
@@ -20,7 +21,7 @@ function ModalGroup({ channel, onClose }) {
       }
     };
     fetchGroups();
-  }, [id]);
+  }, [user]);
 
   // 2) 추가하는 그룹 설정
   const handleCbChange = (e) => {
@@ -53,23 +54,25 @@ function ModalGroup({ channel, onClose }) {
       <p>Groups</p>
 
       {groups.length === 0 && <p>추가 가능한 그룹 없음</p>}
-      <div>
-        {/* 사용자의 그룹 출력 */}
-        {groups.map((group) => (
-          <div key={group.id}>
-            <input
-              type="checkbox"
-              id={group.id}
-              value={group.id}
-              onChange={handleCbChange}
-              // selectedGroups에 id가 있으면 true
-              checked={selectedGroups.includes(group.id)}
-            />
-            <label>{group.group_name}</label>
-          </div>
-        ))}
-        <button onClick={handleSubmit}>추가</button>
-      </div>
+      {groups.length > 0 && (
+        <div>
+          {/* 사용자의 그룹 출력 */}
+          {groups.map((group) => (
+            <div key={group.id}>
+              <input
+                type="checkbox"
+                id={group.id}
+                value={group.id}
+                onChange={handleCbChange}
+                // selectedGroups에 id가 있으면 true
+                checked={selectedGroups.includes(group.id)}
+              />
+              <label>{group.group_name}</label>
+            </div>
+          ))}
+          <button onClick={handleSubmit}>추가</button>
+        </div>
+      )}
     </>
   );
 }
