@@ -66,3 +66,10 @@ export const deleteChannel = async (groupId, channel_id) => {
   const res = await api.delete(`/groups/${groupId}/channels/${channel_id}`);
   return res.data;
 };
+// ----------------
+// 그룹 삭제
+// ----------------
+export const deleteGroup = async (groupId) => {
+  const res = await api.delete(`/groups/${groupId}`);
+  return res.data;
+};

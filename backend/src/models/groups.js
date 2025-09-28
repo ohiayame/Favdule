@@ -54,7 +54,18 @@ export const RenameGroup = async (group_id, group_name) => {
 // POST : group 추가
 // ---------------------------------------------------------
 export const AddGroup = async (user_id, group_name) => {
-  await db.query("INSERT INTO user_groups (user_id, name) VALUE (?, ?)",
-    [user_id, group_name]
-  );
+  await db.query("INSERT INTO user_groups (user_id, name) VALUE (?, ?)", [
+    user_id,
+    group_name,
+  ]);
+};
+
+// ---------------------------------------------------------
+// DELETE : group 삭제
+// ---------------------------------------------------------
+export const DeleteGroup = async (group_id) => {
+  const reDel = await db.query("DELETE FROM user_groups WHERE id = ?", [
+    group_id,
+  ]);
+  console.log(reDel);
 };

@@ -3,6 +3,7 @@ import {
   GetSelectGroups,
   RenameGroup,
   AddGroup,
+  DeleteGroup,
 } from "../models/groups.js";
 import {
   GetChannels,
@@ -101,6 +102,15 @@ export const deleteChannel = async (req, res) => {
   const { groupId, channel_id } = req.params;
   const response = await DeleteGroupChannel(groupId, channel_id);
   res.json(response);
+};
+
+// ---------------------------------------------------------
+// delete Group
+// ---------------------------------------------------------
+export const deleteGroup = async (req, res) => {
+  const { groupId } = req.params;
+  await DeleteGroup(groupId);
+  res.json(true);
 };
 
 // ---------------------------------------------------------

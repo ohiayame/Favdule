@@ -1,7 +1,7 @@
 import Layout from "@/layouts/Layout";
 import GroupChannels from "@/pages/Groups/GroupChannels";
 import { useEffect, useState } from "react";
-import { getUserGroups, setGroupName } from "@/api/groupsApi";
+import { getUserGroups, setGroupName, deleteGroup } from "@/api/groupsApi";
 import { useAuthStore } from "@/store/auth";
 
 function GroupsPage() {
@@ -19,11 +19,18 @@ function GroupsPage() {
       console.log("resGroups", resGroups);
       setGroups(resGroups);
 
+      console.log("groupId", groupId);
       //  그룹 이름 초기화
       if (groupId) {
         const g_name = resGroups.find((g) => g.id === groupId);
-        console.log("g_name", g_name);
-        setGroupname(g_name.group_name);
+        console.log(g_name);
+        if (g_name) {
+          console.log("g_name", g_name);
+          setGroupname(g_name.group_name);
+        } else {
+          setGroupId(resGroups[0]?.id ?? null);
+          setGroupname(resGroups[0]?.group_name ?? "");
+        }
       } else {
         setGroupId(resGroups[0]?.id ?? null);
         setGroupname(resGroups[0]?.group_name ?? "");
@@ -63,6 +70,17 @@ function GroupsPage() {
     }
   };
 
+  const handleDelete = async () => {
+    if (confirm("이 그룹을 삭제하겠습니까?")) {
+      const deleted = await deleteGroup(groupId);
+      setGroupId(null);
+      if (deleted) {
+        console.log("삭제 됨");
+        await fetchGroups();
+      }
+    }
+  };
+
   return (
     <Layout title="Groups">
       <p>Groups</p>
@@ -73,11 +91,10 @@ function GroupsPage() {
             {group.group_name}
           </option>
         ))}
-        <option key="" value="">
+        <option key="null" value="">
           새로운 그룹 추가
         </option>
       </select>
-
       {/* 그룹 이름 수정 */}
       <div>
         <input
@@ -87,7 +104,8 @@ function GroupsPage() {
         />
         <button onClick={handlePatchGroupName}>이름 저장</button>
       </div>
-
+      {/* 그룹 삭제 */}
+      {groupId != null && <button onClick={handleDelete}>그룹 삭제</button>}
       {/* 해당 그룹의 채널 */}
       <GroupChannels groupId={groupId} />
     </Layout>

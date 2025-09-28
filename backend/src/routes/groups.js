@@ -7,6 +7,7 @@ import {
   patchGroupName,
   deleteChannel,
   getGroupVideos,
+  deleteGroup,
 } from "../controllers/groupController.js";
 
 const router = express.Router();
@@ -35,5 +36,8 @@ router.patch("/:groupId", patchGroupName);
 // ========================== DELETE ===============================
 // 1) 그룹의 채널 삭제
 router.delete("/:groupId/channels/:channel_id", deleteChannel);
+
+// 2) 그룹 삭제
+router.delete("/:groupId", deleteGroup);
 
 export default router;
