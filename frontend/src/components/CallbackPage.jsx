@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { getLogin } from "@/api/userApi";
-import { useAuthStore } from "../store/auth";
+import { useAuthStore, useSubscStore } from "../store/auth";
 
 function CallbackPage() {
   // store
   const setUser = useAuthStore((state) => state.setUser);
   const user = useAuthStore((state) => state.user);
+  const setSubsc = useSubscStore((state) => state.setSubsc);
+  const subsc = useSubscStore((state) => state.subsc);
+
   // user정보 저장되면 true
   const [done, setDone] = useState(false);
 
@@ -21,10 +24,11 @@ function CallbackPage() {
           //   localStorage.setItem("access_token", token);
           //   console.log(token);
           // 사용지 정보 조회 (추가)
-          const userData = await getLogin(token);
-          console.log("로그인된 사용자:", userData);
+          const { resUser, Subscriptions } = await getLogin(token);
+          console.log("로그인된 사용자:", resUser);
           // useAuthStore에 저장
-          setUser(userData);
+          setUser(resUser);
+          setSubsc(Subscriptions);
         }
       }
     };
@@ -36,6 +40,7 @@ function CallbackPage() {
   useEffect(() => {
     if (user) {
       console.log("상태가 갱신된 사용자:", user);
+      console.log("subsc", subsc);
       setDone(true);
     }
   }, [user]);

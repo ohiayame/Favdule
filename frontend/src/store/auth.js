@@ -6,10 +6,25 @@ export const useAuthStore = create(
     (set) => ({
       user: null,
       setUser: (user) => set({ user }),
-      logout: () => set({ user: null }),
+      logout: () => {
+        set({ user: null });
+        useSubscStore.getState().setSubsc(null);
+      },
     }),
     {
       name: "auth-storage",
+    }
+  )
+);
+
+export const useSubscStore = create(
+  persist(
+    (set) => ({
+      subsc: null,
+      setSubsc: (subsc) => set({ subsc }),
+    }),
+    {
+      name: "subsc-storage",
     }
   )
 );

@@ -3,6 +3,8 @@ import { useState } from "react";
 import { getChannels } from "@/api/channelsApi";
 import Modal from "react-modal";
 import ModalGroup from "@/pages/Search/ModalGroup";
+import { useSubscStore } from "@/store/auth";
+import { useEffect } from "react";
 
 function SearchPage() {
   const [q, setQ] = useState(""); // 검색어
@@ -10,14 +12,22 @@ function SearchPage() {
   const [isOpen, setIsOpen] = useState(false); // 모달 상태
   const [selectedChannel, setSelectedChannel] = useState();
 
+  const subsc = useSubscStore((state) => state.subsc);
+
   // 채널 조회
   const fetchChannels = async () => {
-    // console.log(q);
-    const resChannels = await getChannels(q);
+    if (q == "") setChannels(subsc);
+    else {
+      const resChannels = await getChannels(q);
 
-    // console.log(resChannels);
-    setChannels(resChannels);
+      console.log(resChannels);
+      setChannels(resChannels);
+    }
   };
+
+  useEffect(() => {
+    fetchChannels();
+  }, [q]);
 
   // modal 닫기
   const handleClose = () => setIsOpen(false);
@@ -32,7 +42,7 @@ function SearchPage() {
 
       {/* 검색 결과 출력 */}
       <div>
-        {channels && (
+        {channels && channels.length > 0 && (
           <table>
             <thead>
               <tr>
@@ -43,7 +53,7 @@ function SearchPage() {
             </thead>
             <tbody>
               {channels.map((channel) => (
-                <tr key={channel.id.channelId}>
+                <tr key={channel.id?.channelId ?? channel.id}>
                   <td>
                     <img
                       src={channel.snippet.thumbnails.medium.url}
@@ -67,6 +77,7 @@ function SearchPage() {
           </table>
         )}
       </div>
+
       {/* 그룹에 추가 */}
       <Modal isOpen={isOpen}>
         {selectedChannel && (
@@ -74,8 +85,6 @@ function SearchPage() {
         )}
         <button onClick={handleClose}>close</button>
       </Modal>
-
-      {/* 사용자가 구독하고 있는 채널 출력 (SubscChannel.jsx) */}
     </Layout>
   );
 }
