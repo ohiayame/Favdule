@@ -1,10 +1,9 @@
 import Layout from "@/layouts/Layout";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getChannels } from "@/api/channelsApi";
 import Modal from "react-modal";
 import ModalGroup from "@/pages/Search/ModalGroup";
 import { useSubscStore } from "@/store/auth";
-import { useEffect } from "react";
 
 function SearchPage() {
   const [q, setQ] = useState(""); // 검색어
@@ -13,6 +12,7 @@ function SearchPage() {
   const [selectedChannel, setSelectedChannel] = useState();
 
   const subsc = useSubscStore((state) => state.subsc);
+  console.log(subsc);
 
   // 채널 조회
   const fetchChannels = async () => {
@@ -27,7 +27,7 @@ function SearchPage() {
 
   useEffect(() => {
     fetchChannels();
-  }, [q]);
+  }, [subsc]);
 
   // modal 닫기
   const handleClose = () => setIsOpen(false);

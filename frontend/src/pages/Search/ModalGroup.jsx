@@ -7,15 +7,25 @@ function ModalGroup({ channel, onClose }) {
   const [selectedGroups, setSelectedGroups] = useState([]);
   const [channel_id, setChannel_id] = useState();
   const user = useAuthStore((state) => state.user);
+  const groupData = JSON.parse(localStorage.getItem("groupData"));
 
   // 1) 사용자 그룹 조회
   useEffect(() => {
     const fetchGroups = async () => {
       try {
-        const resGroups = await getChannelsIdANDGroup(user.id, channel);
-        // console.log(resGroups);
-        setGroups(resGroups.groups);
-        setChannel_id(resGroups.channel_id);
+        let resGroups = null;
+        if (!user) {
+          resGroups = Object.values(groupData).map((row) =>
+            row.filter((item) => item?.channelId != channel.snippet.channelId)
+          );
+          setGroups(resGroups.slice(0, 4));
+        } else {
+          console.log(channel);
+          resGroups = await getChannelsIdANDGroup(user.id, channel);
+          console.log(resGroups);
+          setGroups(resGroups.groups);
+          setChannel_id(resGroups.channel_id);
+        }
       } catch (error) {
         console.error("Error fetching groups:", error);
       }
@@ -41,11 +51,24 @@ function ModalGroup({ channel, onClose }) {
   // 3) 지정한 그룹에 채널 추가
   const handleSubmit = async () => {
     console.log("선택된 그룹:", selectedGroups);
-    const res = await postGroupsChannel(selectedGroups, channel_id);
-    console.log(res.success);
-    if (res.success) {
-      // 모달 닫기
+    if (!user) {
+      selectedGroups.forEach((group) => {
+        groupData[group].push({
+          channelTitle: channel.snippet.channelTitle,
+          channelId: channel.snippet.channelId,
+          img: channel.snippet.thumbnails.medium.url,
+        });
+        localStorage.setItem("groupData", JSON.stringify(groupData));
+      });
+
       onClose();
+    } else {
+      const res = await postGroupsChannel(selectedGroups, channel_id);
+      console.log(res.success);
+      if (res.success) {
+        // 모달 닫기
+        onClose();
+      }
     }
   };
 
@@ -57,17 +80,19 @@ function ModalGroup({ channel, onClose }) {
       {groups.length > 0 && (
         <div>
           {/* 사용자의 그룹 출력 */}
-          {groups.map((group) => (
-            <div key={group.id}>
+          {groups.map((group, idx) => (
+            <div key={idx}>
               <input
                 type="checkbox"
-                id={group.id}
-                value={group.id}
+                id={user ? group.id : idx}
+                value={user ? group.id : idx}
                 onChange={handleCbChange}
                 // selectedGroups에 id가 있으면 true
-                checked={selectedGroups.includes(group.id)}
+                checked={selectedGroups.includes(user ? group.id : idx)}
               />
-              <label>{group.group_name}</label>
+              <label>
+                {user ? group.group_name : groupData.groupsName[idx]}
+              </label>
             </div>
           ))}
           <button onClick={handleSubmit}>추가</button>

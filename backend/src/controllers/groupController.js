@@ -118,8 +118,12 @@ export const deleteGroup = async (req, res) => {
 // ---------------------------------------------------------
 // 1) 그룹의 channelId조회
 export const getGroupVideos = async (req, res) => {
-  const { groupId } = req.params;
-  const channels = await GetChannels(groupId);
+  const groupId = req.body.groupId;
+  let channels = req.body.channels;
+  console.log(groupId, channels);
+  if (groupId) {
+    channels = await GetChannels(groupId);
+  }
 
   let result = null;
 

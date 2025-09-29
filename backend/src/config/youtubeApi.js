@@ -20,7 +20,7 @@ export const SearchVideoApi = axios.create({
   baseURL: baseURL,
   params: {
     part: "snippet",
-    maxResults: 20,
+    maxResults: 10,
     key: API_KEY,
     type: "video",
     order: "date",
@@ -32,5 +32,6 @@ export const SearchVideoInfoApi = axios.create({
   params: {
     part: "snippet,liveStreamingDetails",
     key: API_KEY,
+    maxResults: 10,
   },
 });

@@ -1,15 +1,24 @@
 import { useState, useEffect } from "react";
 import { getGroupChannels, deleteChannel } from "@/api/groupsApi";
 import { Navigate } from "react-router-dom";
+import { useAuthStore } from "@/store/auth";
 
 function GroupChannels({ groupId }) {
+  const user = useAuthStore((state) => state.user);
+  const groupData = JSON.parse(localStorage.getItem("groupData"));
   const [channels, setChannels] = useState([]);
   const [isClick, setClick] = useState(false);
 
   // 해당 그룹의 채널 조회
   const fetchChannels = async () => {
-    const resChannels = await getGroupChannels(groupId);
-    console.log(resChannels);
+    let resChannels = null;
+    if (!user) {
+      resChannels = groupData[groupId];
+      console.log(groupData[groupId]);
+    } else {
+      resChannels = await getGroupChannels(groupId);
+      console.log("resChannels", resChannels);
+    }
     setChannels(resChannels);
   };
 
@@ -19,11 +28,18 @@ function GroupChannels({ groupId }) {
 
   // 채널 삭제
   const handleDeleteChannel = async (channel_id) => {
-    const isDelete = await deleteChannel(groupId, channel_id);
-    console.log(isDelete);
-    if (isDelete) {
-      fetchChannels();
+    if (!user) {
+      console.log(groupId, channel_id);
+      groupData[groupId] = groupData[groupId].filter(
+        (_, idx) => idx != channel_id
+      );
+      console.log(groupData);
+      localStorage.setItem("groupData", JSON.stringify(groupData));
+    } else {
+      const isDelete = await deleteChannel(groupId, channel_id);
+      console.log(isDelete);
     }
+    fetchChannels();
   };
 
   const handleSearch = () => {
@@ -43,14 +59,16 @@ function GroupChannels({ groupId }) {
             </tr>
           </thead>
           <tbody>
-            {channels.map((channel) => (
-              <tr key={channel.id}>
+            {channels.map((channel, idx) => (
+              <tr key={idx}>
                 <td>
-                  <img src={channel.img} alt={channel.channel_name} />
+                  <img src={channel.img} alt={channel.channelTitle} />
                 </td>
-                <td>{channel.channel_name}</td>
+                <td>{channel.channelTitle}</td>
                 <td>
-                  <button onClick={() => handleDeleteChannel(channel.id)}>
+                  <button
+                    onClick={() => handleDeleteChannel(user ? channel.id : idx)}
+                  >
                     삭제
                   </button>
                 </td>

@@ -20,7 +20,7 @@ router.get("/user/:userId", getUserGroups);
 router.get("/:groupId/channels", getGroupChannels);
 
 // 3) 그룹의 영상 조회
-router.get("/:groupId/channels/videos", getGroupVideos);
+router.post("/channels/videos", getGroupVideos);
 
 // ========================== POST ===============================
 // 1) 채널 추가 / id, 추가 가능한 그룹 조회

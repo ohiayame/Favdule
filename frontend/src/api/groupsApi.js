@@ -20,8 +20,11 @@ export const getGroupChannels = async (groupId) => {
 // --------------------
 // 해딩 그룹의 영상 조회
 // --------------------
-export const getVideos = async (groupId) => {
-  const res = await api.get(`/groups/${groupId}/channels/videos`);
+export const getVideos = async (groupId, channels) => {
+  const res = await api.post(`/groups/channels/videos`, {
+    groupId,
+    channels,
+  });
   return res.data;
 };
 
@@ -33,7 +36,8 @@ export const getChannelsIdANDGroup = async (user_id, channel) => {
   const res = await api.post(`/groups/user/channel`, {
     user_id,
     channel: {
-      channelId: channel.id.channelId,
+      channelId:
+        channel.snippet?.resourceId?.channelId ?? channel.snippet.channelId,
       thumbnail: channel.snippet.thumbnails.medium.url,
       title: channel.snippet.title,
     },
