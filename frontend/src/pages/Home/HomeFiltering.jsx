@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import { getUserGroups } from "@/api/groupsApi";
 import { useAuthStore } from "@/store/auth";
 
+import FormControl from "@mui/material/FormControl";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+
 function HomeFiltering({ groupId, onFilterChange }) {
   const [groups, setGroups] = useState([]);
   const user = useAuthStore((state) => state.user);
@@ -40,13 +44,32 @@ function HomeFiltering({ groupId, onFilterChange }) {
 
   return (
     <div>
-      <select value={groupId} onChange={handleSelectChange}>
-        {groups.map((group, idx) => (
-          <option key={user ? group.id : idx} value={user ? group.id : idx}>
-            {user ? group.group_name : group}
-          </option>
-        ))}
-      </select>
+      <FormControl sx={{ minWidth: 80, height: 20 }} size="small">
+        <Select
+          value={groupId}
+          onChange={handleSelectChange}
+          sx={{ height: 20 }}
+          MenuProps={{
+            PaperProps: {
+              sx: {
+                // 드롭다운 박스 전체 높이/폰트 줄이기
+                "& .MuiMenuItem-root": {
+                  fontSize: "0.8rem",
+                  minHeight: "28px",
+                  padding: "2px 8px",
+                },
+              },
+            },
+          }}
+        >
+          {/* 로그인 상태면 id, 아니면 index */}
+          {groups.map((group, idx) => (
+            <MenuItem key={idx} value={user ? group.id : idx}>
+              {user ? group.group_name : group}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
     </div>
   );
 }

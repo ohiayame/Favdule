@@ -5,7 +5,7 @@ function Layout({ title, children, groupId, onFilterChange }) {
     <>
       <Header title={title} groupId={groupId} onFilterChange={onFilterChange} />
 
-      <main style={{ backgroundColor: "#ffdaf9ff" }}>{children}</main>
+      <main>{children}</main>
     </>
   );
 }

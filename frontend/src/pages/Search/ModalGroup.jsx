@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { getChannelsIdANDGroup, postGroupsChannel } from "@/api/groupsApi";
 import { useAuthStore } from "@/store/auth";
 
+import Button from "@mui/material/Button";
+
 function ModalGroup({ channel, onClose }) {
   const [groups, setGroups] = useState([]);
   const [selectedGroups, setSelectedGroups] = useState([]);
@@ -74,7 +76,7 @@ function ModalGroup({ channel, onClose }) {
 
   return (
     <>
-      <p>Groups</p>
+      <p>Group에 추가</p>
 
       {groups.length === 0 && <p>추가 가능한 그룹 없음</p>}
       {groups.length > 0 && (
@@ -95,7 +97,18 @@ function ModalGroup({ channel, onClose }) {
               </label>
             </div>
           ))}
-          <button onClick={handleSubmit}>추가</button>
+          <Button
+            size="medium"
+            variant="outlined"
+            sx={{
+              minWidth: "auto",
+              padding: "0px 8px",
+              marginLeft: "75%",
+            }}
+            onClick={handleSubmit}
+          >
+            추가
+          </Button>
         </div>
       )}
     </>
