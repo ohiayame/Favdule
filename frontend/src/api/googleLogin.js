@@ -10,5 +10,6 @@ export const userLogin = () => {
     `https://accounts.google.com/o/oauth2/v2/auth?` +
     `client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}` +
     `&response_type=token&scope=${encodeURIComponent(SCOPE)}`;
+  console.log("Redirect URI:", REDIRECT_URI);
   window.location.href = authUrl;
 };
