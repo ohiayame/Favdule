@@ -128,7 +128,7 @@ function SearchPage() {
         style={{
           content: {
             width: "300px",
-            height: "200px",
+            maxHeight: "270px",
             margin: "auto",
           },
         }}

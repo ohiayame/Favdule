@@ -13,11 +13,13 @@ import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
+import AddIcon from "@mui/icons-material/Add";
 
 function GroupsPage() {
   const [groups, setGroups] = useState([]); // 사용자 그룹
   const [groupId, setGroupId] = useState(null); // 그룹 ID
-  const [groupName, setGroupname] = useState(""); // 그룹 이름
+  const [groupName, setGroupname] = useState("newGroup"); // 그룹 이름
   const user = useAuthStore((state) => state.user);
   const groupData = JSON.parse(localStorage.getItem("groupData"));
   // -----------------------
@@ -34,9 +36,10 @@ function GroupsPage() {
         setGroupname(groupData.groupsName[0]);
       } else {
         resGroups = await getUserGroups(user.id);
+        console.log(resGroups);
 
-        //  그룹 이름 초기화
         if (groupId) {
+          //  그룹 이름 초기화
           const g_name = resGroups.find((g) => g.id === groupId);
           console.log("g_name", g_name);
           if (g_name) {
@@ -47,8 +50,11 @@ function GroupsPage() {
             setGroupname(resGroups[0]?.group_name ?? "");
           }
         } else {
-          setGroupId(resGroups[0]?.id ?? null);
-          setGroupname(resGroups[0]?.group_name ?? "");
+          if (resGroups.length == 0) {
+            setGroupname("newGroup");
+            await handlePatchGroupName();
+          } else setGroupname(resGroups[0]?.group_name);
+          setGroupId(resGroups[0]?.id);
         }
       }
       setGroups(resGroups);
@@ -66,9 +72,9 @@ function GroupsPage() {
   // select에서 groupId와 group_name set
   // ------------------------------------
   const handleSelectChange = (e) => {
-    console.log(e.target.value);
+    console.log("handleSelectChange", e.target.value);
     const val = e.target.value !== "" ? Number(e.target.value) : null;
-    console.log("groupId", val);
+    console.log("groupId", typeof val);
     setGroupId(val);
 
     // group_name 저장
@@ -76,7 +82,8 @@ function GroupsPage() {
       setGroupname(groupData.groupsName[val]);
     } else {
       const selectedGroup = groups.find((g) => g.id === val);
-      setGroupname(selectedGroup?.group_name ?? "");
+      console.log("selectedGroup", selectedGroup);
+      setGroupname(selectedGroup?.group_name ?? "새로운 그룹");
     }
   };
 
@@ -84,7 +91,7 @@ function GroupsPage() {
   // 그룹 이름 수정
   // ------------------------------------
   const handlePatchGroupName = async () => {
-    console.log("handlePatchGroupName");
+    console.log("handlePatchGroupName", groupId);
     if (!user) {
       // 해당 index의 이름 재정의
       groupData.groupsName[groupId] = groupName;
@@ -100,6 +107,7 @@ function GroupsPage() {
     if (confirm("이 그룹을 삭제하겠습니까?")) {
       const deleted = await deleteGroup(groupId);
       setGroupId(null);
+      setGroupName("newGroup");
       if (deleted) {
         console.log("삭제 됨");
         await fetchGroups();
@@ -140,7 +148,7 @@ function GroupsPage() {
           {/* 로그인 시 가능 */}
           {user && (
             <MenuItem key="null" value="">
-              새로운 그룹 추가
+              + 새로운 그룹 추가 +
             </MenuItem>
           )}
         </Select>
@@ -161,8 +169,8 @@ function GroupsPage() {
         >
           <InputBase
             sx={{ ml: 1, flex: 1 }}
-            placeholder="Channel name"
-            defaultValue={groupName}
+            placeholder="Group name"
+            value={groupName}
             onChange={(e) => setGroupname(e.target.value)}
           />
           <IconButton
@@ -171,13 +179,21 @@ function GroupsPage() {
             aria-label="edit"
             onClick={handlePatchGroupName}
           >
-            <EditIcon fontSize="small" />
+            {groupId ? (
+              <Tooltip title="클릭후 이름 수정">
+                <EditIcon fontSize="small" />
+              </Tooltip>
+            ) : (
+              <Tooltip title="클릭후 그룹추가">
+                <AddIcon fontSize="small" />
+              </Tooltip>
+            )}
           </IconButton>
         </Paper>
       </div>
 
       {/* 그룹 삭제 (로그인시 가능) */}
-      {groupId != null && user && (
+      {groupId != null && user && groups.length > 1 && (
         <Button
           size="medium"
           variant="outlined"

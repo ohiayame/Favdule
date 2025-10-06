@@ -12,7 +12,7 @@ h1 {
   padding-bottom: 4px;
 }
 h2 {
-  font-size: 20px;
+  font-size: 18px;
   flex: 0 0 auto;
   font-weight: 800;
   text-align-last: center;
@@ -45,24 +45,18 @@ body {
   min-width: 398px;
 }
 
+.days {
+  background-color: #fff;
+  margin: 3px;
+  border-radius: 6px;
+}
+
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
   align-content: center;
   flex-wrap: wrap;
-}
-
-.btn {
-  font-size: 10px;
-  height: 20px;
-  margin: 1px;
-  text-align: center;
-  border-radius: 7px;
-  color: rgb(201, 78, 78);
-  background-color: #f7faff;
-}
-.btn:hover {
 }
 
 .lgbtn {
