@@ -1,8 +1,7 @@
 // OAuth 클라이언트 ID
 const CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 // Gooogle Cloud에서 등록한 리디렉션 URI
-console.log("Redirect URI:", import.meta.env.VITE_GOOGLE_REDIRECT_URI);
-const REDIRECT_URI = "https://myyoudule.onrender.com/callback";
+const REDIRECT_URI = import.meta.env.VITE_GOOGLE_REDIRECT_URI;
 const SCOPE = "profile email https://www.googleapis.com/auth/youtube.readonly";
 
 // 로그인 버튼 클릭 시 Google OAuth로 리디렉션
