@@ -176,6 +176,7 @@ export const getGroupVideos = async (req, res) => {
     // 6) 데이터 정리 후 저장
     // 체널 이름, 영상 제목, 썸네일, 시간({date:"00-00", time: "00:00"})
     pushVideo.push({
+      id: vi.id,
       channelTitle: vi.snippet.channelTitle,
       title: vi.snippet.localized.title,
       thumbnails: vi.snippet.thumbnails.medium.url,

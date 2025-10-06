@@ -16,6 +16,9 @@ function VideoCard({ video, isMobile }) {
           ? { display: "flex", margin: 1, height: "85px" }
           : { margin: 1 }
       }
+      onClick={() =>
+        window.open(`https://www.youtube.com/watch?v=${video.id}`, "_blank")
+      }
     >
       <CardActionArea>
         {!isMobile && (
