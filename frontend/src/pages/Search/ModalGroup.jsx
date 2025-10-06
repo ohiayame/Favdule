@@ -15,15 +15,23 @@ function ModalGroup({ channel, onClose }) {
   useEffect(() => {
     const fetchGroups = async () => {
       try {
-        let resGroups = null;
+        let resGroups = [];
         if (!user) {
-          resGroups = Object.values(groupData).map((row) =>
-            row.filter((item) => item?.channelId != channel.snippet.channelId)
-          );
-          setGroups(resGroups.slice(0, 4));
+          console.log("groupData", groupData);
+          Object.values(groupData).forEach((group, idx) => {
+            if (idx == 4) return;
+            // 같은 채널을 포함하지 않음
+            if (!group.some((item) => item.channelId == channel.snippet.channelId)
+            ) {
+              // console.log(idx);
+              resGroups.push(idx);   // idx 배열
+            }
+          });
+          // console.log("resGroups", resGroups);
+          setGroups(resGroups);
         } else {
           resGroups = await getChannelsIdANDGroup(user.id, channel);
-          // console.log(resGroups);
+          console.log("resGroups", resGroups);
           setGroups(resGroups.groups);
           setChannel_id(resGroups.channel_id);
         }
@@ -85,14 +93,14 @@ function ModalGroup({ channel, onClose }) {
             <div key={idx}>
               <input
                 type="checkbox"
-                id={user ? group.id : idx}
-                value={user ? group.id : idx}
+                id={user ? group.id : group}
+                value={user ? group.id : group}
                 onChange={handleCbChange}
                 // selectedGroups에 id가 있으면 true
-                checked={selectedGroups.includes(user ? group.id : idx)}
+                checked={selectedGroups.includes(user ? group.id : group)}
               />
               <label>
-                {user ? group.group_name : groupData.groupsName[idx]}
+                {user ? group.group_name : groupData.groupsName[group]}
               </label>
             </div>
           ))}
