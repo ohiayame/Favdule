@@ -46,8 +46,19 @@ function CallbackPage() {
   }, [user]);
 
   // user정보있으면 메인에 이동
-  if (done && user) return <Navigate to="/search" replace />;
-  return <div>대기</div>;
+  if (done && user) return <Navigate to="/" replace />;
+  return (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+      }}
+    >
+      <img src="/loading.gif" alt="loading" style={{ width: "50%" }} />
+    </div>
+  );
 }
 
 export default CallbackPage;
