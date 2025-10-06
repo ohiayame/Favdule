@@ -1,6 +1,6 @@
 import Layout from "@/layouts/Layout";
 import DayContainer from "./DayContainer";
-import { useState } from "react";
+import { useState, Fragment } from "react";
 import { getVideos } from "@/api/groupsApi";
 import { useAuthStore } from "@/store/auth";
 
@@ -77,7 +77,7 @@ function Home() {
         }}
       >
         {dayList.map((d, idx) => (
-          <>
+          <Fragment key={idx}>
             <Grid
               item
               xs={isMobile ? 12 : false}
@@ -86,7 +86,7 @@ function Home() {
               <DayContainer day={d} videos={videos[d]} isMobile={isMobile} />
             </Grid>
             {idx != 2 && <Divider orientation="vertical" flexItem />}
-          </>
+          </Fragment>
         ))}
       </Grid>
     </Layout>

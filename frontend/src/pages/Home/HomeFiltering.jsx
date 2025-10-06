@@ -46,7 +46,7 @@ function HomeFiltering({ groupId, onFilterChange }) {
     <div>
       <FormControl sx={{ minWidth: 80, height: 20 }} size="small">
         <Select
-          value={groupId}
+          value={groupId ?? ""}
           onChange={handleSelectChange}
           sx={{ height: 20 }}
           MenuProps={{
