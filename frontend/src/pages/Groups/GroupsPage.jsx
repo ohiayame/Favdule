@@ -13,8 +13,6 @@ import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import AddIcon from "@mui/icons-material/Add";
 
 function GroupsPage() {
   const [groups, setGroups] = useState([]); // 사용자 그룹
@@ -154,6 +152,10 @@ function GroupsPage() {
       <div>
         <Paper
           component="form"
+          onSubmit={(e) => {
+            e.preventDefault();
+            handlePatchGroupName();
+          }}
           sx={{
             p: "2px 4px",
             marginLeft: "8px",
@@ -175,15 +177,7 @@ function GroupsPage() {
             aria-label="edit"
             onClick={handlePatchGroupName}
           >
-            {!groupId && user ? (
-              <Tooltip title="클릭후 그룹추가">
-                <AddIcon fontSize="small" />
-              </Tooltip>
-            ) : (
-              <Tooltip title="클릭후 이름 수정">
-                <EditIcon fontSize="small" />
-              </Tooltip>
-            )}
+            <EditIcon fontSize="small" />
           </IconButton>
         </Paper>
       </div>

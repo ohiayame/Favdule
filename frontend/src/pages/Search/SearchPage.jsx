@@ -54,6 +54,10 @@ function SearchPage() {
       {/* 채널 검색 */}
       <Paper
         component="form"
+        onSubmit={(e) => {
+          e.preventDefault();
+          fetchChannels();
+        }}
         sx={{
           p: "2px 4px",
           marginLeft: "8px",
