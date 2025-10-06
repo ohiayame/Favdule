@@ -6,7 +6,12 @@ import groupsRouter from "./src/routes/groups.js";
 import youtubeRouter from "./src/routes/youtube.js";
 
 const app = express();
-app.use(cors());
+
+app.use(cors({
+  origin: "https://myyoudule.onrender.com",
+  credentials: true
+}));
+
 app.use(express.json());
 
 // 라우터 연결
