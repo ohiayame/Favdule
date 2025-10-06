@@ -9,6 +9,7 @@ export const useAuthStore = create(
       logout: () => {
         set({ user: null });
         useSubscStore.getState().setSubsc(null);
+        window.location.href = "/";
       },
     }),
     {
