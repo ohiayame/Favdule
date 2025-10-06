@@ -22,9 +22,8 @@ function ModalGroup({ channel, onClose }) {
           );
           setGroups(resGroups.slice(0, 4));
         } else {
-          console.log(channel);
           resGroups = await getChannelsIdANDGroup(user.id, channel);
-          console.log(resGroups);
+          // console.log(resGroups);
           setGroups(resGroups.groups);
           setChannel_id(resGroups.channel_id);
         }
@@ -42,11 +41,11 @@ function ModalGroup({ channel, onClose }) {
     // checked가 true면 setSelectedGroups에 추가
     if (e.target.checked) {
       setSelectedGroups((prev) => [...prev, value]);
-      console.log("추가!!!");
+      // console.log("추가!!!");
     } else {
       // value값 외의 값만 저장
       setSelectedGroups((prev) => prev.filter((id) => id !== value));
-      console.log("삭제");
+      // console.log("삭제");
     }
   };
 
@@ -66,7 +65,7 @@ function ModalGroup({ channel, onClose }) {
       onClose();
     } else {
       const res = await postGroupsChannel(selectedGroups, channel_id);
-      console.log(res.success);
+      // console.log(res.success);
       if (res.success) {
         // 모달 닫기
         onClose();

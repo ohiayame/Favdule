@@ -9,24 +9,28 @@ import ManageSearchIcon from "@mui/icons-material/ManageSearch";
 
 export const RouterData = [
   {
+    // main
     title: "Home",
     element: <HomePage />,
     link: "/",
     icon: <HomeIcon />,
   },
   {
+    // grouping
     title: "Groups",
     element: <GroupsPage />,
     link: "/groups",
     icon: <ListAltIcon />,
   },
   {
+    // Searching Channels
     title: "Search",
     element: <SearchPage />,
     link: "/search",
     icon: <ManageSearchIcon />,
   },
   {
+    // GoogleLogin callback
     element: <CallbackPage />,
     link: "/callback",
   },

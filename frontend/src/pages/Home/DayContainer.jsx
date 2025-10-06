@@ -1,7 +1,7 @@
 import VideoCard from "./VideoCard";
 
 function DayContainer({ day, videos, isMobile }) {
-  console.log(day, ": videos", videos);
+  // console.log(day, ": videos", videos);
   const cl = {
     yesterday: "#d8f4ffff",
     today: "#dbd8ffff",
@@ -16,7 +16,7 @@ function DayContainer({ day, videos, isMobile }) {
         borderRadius: "6px",
       }}
     >
-      <div class="days">
+      <div className="days">
         <h2>
           {day} ({videos[0]?.date})
         </h2>

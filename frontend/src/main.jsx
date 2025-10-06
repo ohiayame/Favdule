@@ -14,7 +14,7 @@ if (!localStorage.getItem("groupData")) {
       1: [],
       2: [],
       3: [],
-      groupsName: ["a", "b", "c", "d"],
+      groupsName: ["group1", "group2", "group3", "group4"],
     })
   );
 }

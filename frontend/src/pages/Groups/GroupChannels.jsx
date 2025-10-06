@@ -23,11 +23,11 @@ function GroupChannels({ groupId }) {
   const fetchChannels = async () => {
     let resChannels = null;
     if (!user) {
-      resChannels = groupData[groupId];
-      console.log(groupData[groupId]);
+      resChannels = groupData[groupId];             // 비회원 : LS
+      // console.log(groupData[groupId]);
     } else {
-      resChannels = await getGroupChannels(groupId);
-      console.log("resChannels", resChannels);
+      resChannels = await getGroupChannels(groupId);// 회원 : get
+      // console.log("resChannels", resChannels);
     }
     setChannels(resChannels);
   };
@@ -39,13 +39,15 @@ function GroupChannels({ groupId }) {
   // 채널 삭제
   const handleDeleteChannel = async (channel_id) => {
     if (!user) {
-      console.log(groupId, channel_id);
+      // console.log(groupId, channel_id);
       groupData[groupId] = groupData[groupId].filter(
         (_, idx) => idx != channel_id
       );
-      console.log(groupData);
+      // console.log(groupData);
+      // 해당 채널 이외를 다시 저장
       localStorage.setItem("groupData", JSON.stringify(groupData));
     } else {
+      // 회원 : del
       const isDelete = await deleteChannel(groupId, channel_id);
       console.log(isDelete);
     }
@@ -59,11 +61,13 @@ function GroupChannels({ groupId }) {
   return (
     <Box sx={{ flexGrow: 1, width: "100%" }}>
       {/* 채널 출력 */}
-      {channels && channels.length > 0 ? (
+      {channels && channels.length > 0 && (
         <List>
           {channels.map((channel, idx) => (
             <ListItem
+              key={idx}
               secondaryAction={
+                // 맨 오른 쪽에 출력 : 쓰래기통
                 <IconButton
                   edge="end"
                   aria-label="delete"
@@ -73,6 +77,7 @@ function GroupChannels({ groupId }) {
                 </IconButton>
               }
             >
+              {/* 사진 */}
               <ListItemAvatar sx={{ minWidth: 72 }}>
                 <Avatar
                   src={channel.img}
@@ -80,6 +85,7 @@ function GroupChannels({ groupId }) {
                   sx={{ width: 56, height: 56 }}
                 />
               </ListItemAvatar>
+              {/* 채널 이름 */}
               <ListItemText
                 primary={channel.channelTitle}
                 sx={{
@@ -91,8 +97,6 @@ function GroupChannels({ groupId }) {
             </ListItem>
           ))}
         </List>
-      ) : (
-        <p></p>
       )}
 
       {/* 추가 (검색 페이지 이동) */}
@@ -100,7 +104,7 @@ function GroupChannels({ groupId }) {
         onClick={handleSearch}
         secondaryAction={
           <IconButton edge="end">
-            <AddIcon />
+            <AddIcon />  
           </IconButton>
         }
       >

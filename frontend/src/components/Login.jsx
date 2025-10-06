@@ -11,7 +11,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 function Login() {
   // 사용자 정보 조회
   const user = useAuthStore((state) => state.user);
-  console.log("user", user);
+  // console.log("user", user);
   const logout = useAuthStore((state) => state.logout);
 
   // 로그인 / 로그아웃
@@ -46,8 +46,8 @@ function Login() {
         </div>
       )}
       {!user && (
-        <div class="container">
-          <a onClick={handleUser} class="lgbtn lgbtn-2">
+        <div className="container">
+          <a onClick={handleUser} className="lgbtn lgbtn-2">
             로그인하기
           </a>
         </div>

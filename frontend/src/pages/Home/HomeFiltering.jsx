@@ -22,7 +22,7 @@ function HomeFiltering({ groupId, onFilterChange }) {
         onFilterChange(0);
       } else {
         const resGroups = await getUserGroups(id);
-        console.log(resGroups);
+        // console.log(resGroups);
         setGroups(resGroups);
         onFilterChange(resGroups[0].id);
       }

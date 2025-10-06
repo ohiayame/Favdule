@@ -25,7 +25,7 @@ function CallbackPage() {
           //   console.log(token);
           // 사용지 정보 조회 (추가)
           const { resUser, Subscriptions } = await getLogin(token);
-          console.log("로그인된 사용자:", resUser);
+          // console.log("로그인된 사용자:", resUser);
           // useAuthStore에 저장
           setUser(resUser);
           setSubsc(Subscriptions);
@@ -39,8 +39,8 @@ function CallbackPage() {
   // user정보 갱신되면 실행
   useEffect(() => {
     if (user) {
-      console.log("상태가 갱신된 사용자:", user);
-      console.log("subsc", subsc);
+      // console.log("상태가 갱신된 사용자:", user);
+      // console.log("subsc", subsc);
       setDone(true);
     }
   }, [user]);

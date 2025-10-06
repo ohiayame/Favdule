@@ -29,7 +29,7 @@ function SearchPage() {
   const [selectedChannel, setSelectedChannel] = useState();
 
   const subsc = useSubscStore((state) => state.subsc);
-  console.log(subsc);
+  // console.log(subsc);
 
   // 채널 조회
   const fetchChannels = async () => {
@@ -37,7 +37,7 @@ function SearchPage() {
     else {
       const resChannels = await getChannels(q);
 
-      console.log(resChannels);
+      // console.log(resChannels);
       setChannels(resChannels);
     }
   };
@@ -133,6 +133,7 @@ function SearchPage() {
           },
         }}
       >
+        {/* X icon */}
         <Grid container justifyContent="flex-end" alignItems="center" size={6}>
           <Tooltip placement="right-start">
             <CloseIcon onClick={handleClose} />

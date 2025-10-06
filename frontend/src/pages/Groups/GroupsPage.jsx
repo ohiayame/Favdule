@@ -29,21 +29,17 @@ function GroupsPage() {
     try {
       let resGroups = null;
       if (!user) {
-        console.log("groupData", groupData);
         resGroups = groupData.groupsName;
         // 초기화
         setGroupId(0);
         setGroupname(groupData.groupsName[0]);
       } else {
         resGroups = await getUserGroups(user.id);
-        console.log(resGroups);
 
         if (groupId) {
           //  그룹 이름 초기화
           const g_name = resGroups.find((g) => g.id === groupId);
-          console.log("g_name", g_name);
           if (g_name) {
-            console.log("g_name", g_name);
             setGroupname(g_name.group_name);
           } else {
             setGroupId(resGroups[0]?.id ?? null);
@@ -65,16 +61,16 @@ function GroupsPage() {
 
   useEffect(() => {
     fetchGroups();
-    console.log("groupName", groupName);
+    // console.log("groupName", groupName);
   }, []);
 
   // ------------------------------------
   // select에서 groupId와 group_name set
   // ------------------------------------
   const handleSelectChange = (e) => {
-    console.log("handleSelectChange", e.target.value);
+    // console.log("handleSelectChange", e.target.value);
     const val = e.target.value !== "" ? Number(e.target.value) : null;
-    console.log("groupId", typeof val);
+    // console.log("groupId", typeof val);
     setGroupId(val);
 
     // group_name 저장
@@ -82,7 +78,7 @@ function GroupsPage() {
       setGroupname(groupData.groupsName[val]);
     } else {
       const selectedGroup = groups.find((g) => g.id === val);
-      console.log("selectedGroup", selectedGroup);
+      // console.log("selectedGroup", selectedGroup);
       setGroupname(selectedGroup?.group_name ?? "새로운 그룹");
     }
   };
@@ -91,7 +87,7 @@ function GroupsPage() {
   // 그룹 이름 수정
   // ------------------------------------
   const handlePatchGroupName = async () => {
-    console.log("handlePatchGroupName", groupId);
+    // console.log("handlePatchGroupName", groupId);
     if (!user) {
       // 해당 index의 이름 재정의
       groupData.groupsName[groupId] = groupName;
@@ -179,13 +175,13 @@ function GroupsPage() {
             aria-label="edit"
             onClick={handlePatchGroupName}
           >
-            {groupId ? (
-              <Tooltip title="클릭후 이름 수정">
-                <EditIcon fontSize="small" />
-              </Tooltip>
-            ) : (
+            {!groupId && user ? (
               <Tooltip title="클릭후 그룹추가">
                 <AddIcon fontSize="small" />
+              </Tooltip>
+            ) : (
+              <Tooltip title="클릭후 이름 수정">
+                <EditIcon fontSize="small" />
               </Tooltip>
             )}
           </IconButton>
