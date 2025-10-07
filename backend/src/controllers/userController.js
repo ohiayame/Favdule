@@ -1,4 +1,5 @@
 import { GetUserData, AddUser } from "../models/user.js";
+import { AddGroup } from "../models/groups.js";
 
 export const postLogin = async (req, res) => {
   const user_token = req.body.token;
