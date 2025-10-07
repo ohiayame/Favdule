@@ -7,19 +7,23 @@ import youtubeRouter from "./src/routes/youtube.js";
 
 const app = express();
 
-app.use(cors({
-  origin: "https://myyoudule.onrender.com",
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: "https://myyoudule.onrender.com",
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 
 // 라우터 연결
-app.use("/api/users", usersRouter);
-app.use("/api/groups", groupsRouter);
+app.use("/users", usersRouter);
+app.use("/groups", groupsRouter);
 // app.use("/api/channels", channelsRouter);
-app.use("/api/youtube", youtubeRouter);
+app.use("/youtube", youtubeRouter);
 
-app.listen(4000, () => {
-  console.log("Server running on http://localhost:4000");
+const PORT = process.env.PORT || 4000;
+
+app.listen(PORT, () => {
+  console.log("Server running on http://localhost:${PORT}");
 });
