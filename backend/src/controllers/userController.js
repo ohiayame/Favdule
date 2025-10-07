@@ -25,6 +25,9 @@ export const postLogin = async (req, res) => {
     };
     // 추가
     user = await AddUser(setData);
+    console.log("user", user[0]);
+
+    await AddGroup(user[0].id, "newGroup");
   }
   const resUser = user[0];
   console.log("resUser", resUser);
