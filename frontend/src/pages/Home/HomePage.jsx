@@ -73,6 +73,7 @@ function Home() {
         container
         rowSpacing={1}
         sx={{
+          flexDirection: { xs: "column", sm: "row" }, // xs에서는 세로, sm 이상에서는 가로
           justifyContent: "space-evenly",
         }}
       >
@@ -85,7 +86,12 @@ function Home() {
             >
               <DayContainer day={d} videos={videos[d]} isMobile={isMobile} />
             </Grid>
-            {idx != 2 && <Divider orientation="vertical" flexItem />}
+            {idx !== 2 && (
+              <Divider
+                orientation={isMobile ? "horizontal" : "vertical"}
+                flexItem
+              />
+            )}
           </Fragment>
         ))}
       </Grid>

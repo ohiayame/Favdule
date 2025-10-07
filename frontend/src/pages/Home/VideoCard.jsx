@@ -13,88 +13,89 @@ function VideoCard({ video, isMobile }) {
     <Card
       sx={
         isMobile
-          ? { display: "flex", margin: 1, height: "85px" }
+          ? { display: "flex", margin: 1, height: "85px", minWidth: 0 }
           : { margin: 1 }
       }
       onClick={() =>
         window.open(`https://www.youtube.com/watch?v=${video.id}`, "_blank")
       }
     >
-      <CardActionArea>
-        {!isMobile && (
-          // {/* 썸네일 */}
-          <CardMedia
-            component="img"
-            image={video.thumbnails}
-            alt={video.title}
-            sx={{
-              aspectRatio: "16/9",
-            }}
-          />
+      {!isMobile && (
+        // {/* 썸네일 */}
+        <CardMedia
+          component="img"
+          image={video.thumbnails}
+          alt={video.title}
+          sx={{
+            aspectRatio: "16/9",
+          }}
+        />
+      )}
+
+      <CardContent sx={{ flex: 1, padding: 0.5, minWidth: 0 }}>
+        {!isMobile ? (
+          <>
+            {/* 시간 */}
+            <Typography gutterBottom variant="h6" sx={{ margin: "0" }}>
+              {Vtime}
+            </Typography>
+            {/* 채널 명 */}
+            <Typography gutterBottom variant="caption" noWrap>
+              {video.channelTitle}
+            </Typography>
+          </>
+        ) : (
+          <>
+            <Typography gutterBottom variant="subtitle2" sx={{ margin: "0" }}>
+              {Vtime}
+            </Typography>
+            <Typography
+              gutterBottom
+              variant="caption"
+              sx={{
+                margin: "0",
+                display: "block",
+              }}
+              noWrap
+            >
+              {video.channelTitle}
+            </Typography>
+          </>
         )}
 
-        <CardContent sx={{ flex: 1, padding: 0.5 }}>
-          {!isMobile ? (
-            <>
-              {/* 시간 */}
-              <Typography gutterBottom variant="h6" sx={{ margin: "0" }}>
-                {Vtime}
-              </Typography>
-              {/* 채널 명 */}
-              <Typography gutterBottom variant="caption" noWrap>
-                {video.channelTitle}
-              </Typography>
-            </>
-          ) : (
-            <>
-              <Typography gutterBottom variant="subtitle2" sx={{ margin: "0" }}>
-                {Vtime}
-              </Typography>
-              <Typography
-                gutterBottom
-                variant="caption"
-                sx={{ margin: "0" }}
-                noWrap
-              >
-                {video.channelTitle}
-              </Typography>
-            </>
-          )}
-
-          {/* 내용 */}
-          <Typography
-            variant="body2"
-            sx={
-              isMobile
-                ? {
-                    fontSize: "12px",
-                    color: "text.secondary",
-                    overflow: "hidden",
-                    display: "-webkit-box",
-                    WebkitBoxOrient: "vertical",
-                    WebkitLineClamp: 2,
-                  }
-                : {
-                    padding: 0,
-                    color: "text.secondary",
-                    overflow: "hidden",
-                    display: "-webkit-box",
-                    WebkitBoxOrient: "vertical",
-                    WebkitLineClamp: 2,
-                  }
-            }
-          >
-            {video.title}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
+        {/* 내용 */}
+        <Typography
+          variant="body2"
+          sx={
+            isMobile
+              ? {
+                  fontSize: "12px",
+                  color: "text.secondary",
+                  overflow: "hidden",
+                  display: "-webkit-box",
+                  WebkitBoxOrient: "vertical",
+                  WebkitLineClamp: 2,
+                }
+              : {
+                  padding: 0,
+                  color: "text.secondary",
+                  overflow: "hidden",
+                  display: "-webkit-box",
+                  WebkitBoxOrient: "vertical",
+                  WebkitLineClamp: 2,
+                }
+          }
+        >
+          {video.title}
+        </Typography>
+      </CardContent>
 
       {isMobile && (
         <Box
           sx={{
+            flexShrink: 0,
             flex: "0 0 120px",
-            minWidth: 120,
-            maxWidth: 120,
+            width: 120,
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
