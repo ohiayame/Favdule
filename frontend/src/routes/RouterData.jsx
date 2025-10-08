@@ -2,6 +2,7 @@ import HomePage from "@/pages/Home/HomePage";
 import GroupsPage from "@/pages/Groups/GroupsPage";
 import SearchPage from "@/pages/Search/SearchPage";
 import CallbackPage from "@/components/CallbackPage";
+import HelpPage from "@/pages/Help/HelpPage";
 
 import HomeIcon from "@mui/icons-material/Home";
 import ListAltIcon from "@mui/icons-material/ListAlt";
@@ -33,5 +34,10 @@ export const RouterData = [
     // GoogleLogin callback
     element: <CallbackPage />,
     link: "/callback",
+  },
+  {
+    // help
+    element: <HelpPage />,
+    link: "/help",
   },
 ];

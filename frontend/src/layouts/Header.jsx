@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 import Grid from "@mui/material/Grid";
 import Tooltip from "@mui/material/Tooltip";
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 
 function Header({ title, groupId, onFilterChange }) {
   return (
@@ -22,6 +23,9 @@ function Header({ title, groupId, onFilterChange }) {
           </Tooltip>
         </Grid>
         <Grid container justifyContent="flex-end" alignItems="center" size={6}>
+          <Link to="/help">
+            <HelpOutlineIcon color="action" sx={{ marginRight: "4px" }} />
+          </Link>
           {title === "Home" && (
             <HomeFiltering groupId={groupId} onFilterChange={onFilterChange} />
           )}
