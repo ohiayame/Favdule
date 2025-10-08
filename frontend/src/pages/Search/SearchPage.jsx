@@ -5,6 +5,8 @@ import Modal from "react-modal";
 import ModalGroup from "@/pages/Search/ModalGroup";
 import { useSubscStore } from "@/store/auth";
 
+import Typography from "@mui/material/Typography";
+
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -51,6 +53,17 @@ function SearchPage() {
 
   return (
     <Layout title="Search">
+      <Typography
+        gutterBottom
+        variant="body2"
+        sx={{
+          padding: 0,
+          color: "text.secondary",
+        }}
+      >
+        Youtuber를 검색해서 Group에 등록!
+      </Typography>
+
       {/* 채널 검색 */}
       <Paper
         component="form"

@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { getUserGroups, setGroupName, deleteGroup } from "@/api/groupsApi";
 import { useAuthStore } from "@/store/auth";
 
+import Typography from "@mui/material/Typography";
+
 import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import InputBase from "@mui/material/InputBase";
@@ -110,7 +112,19 @@ function GroupsPage() {
   };
 
   return (
-    <Layout title="Groups">
+    <Layout title="MyGroups">
+      <Typography
+        gutterBottom
+        variant="body2"
+        sx={{
+          marginTop: "5px",
+          padding: 0,
+          color: "text.secondary",
+        }}
+      >
+        자기만의 Group를 만들어 볼까요?
+      </Typography>
+
       {/* 사용자의 그룹 출력 */}
       <FormControl sx={{ minWidth: 120, height: 27, margin: 1 }} size="small">
         <Select

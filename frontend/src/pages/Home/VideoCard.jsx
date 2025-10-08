@@ -2,13 +2,12 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import CardActionArea from "@mui/material/CardActionArea";
 import Box from "@mui/material/Box";
 
 // 하나의 영상 정보 출력 카드
-function VideoCard({ video, isMobile }) {
-  // console.log("video", video);
-  const Vtime = video.time.time;
+function VideoCard({ video, isMobile, isNull }) {
+  console.log("isNull", isNull);
+  const Vtime = video?.time.time;
   return (
     <Card
       sx={
@@ -24,70 +23,94 @@ function VideoCard({ video, isMobile }) {
         // {/* 썸네일 */}
         <CardMedia
           component="img"
-          image={video.thumbnails}
-          alt={video.title}
-          sx={{
-            aspectRatio: "16/9",
-          }}
+          image={isNull ? "/MyYoudule_Logo.png" : video.thumbnails}
+          alt={isNull ? "x" : video.title}
+          sx={
+            isNull
+              ? {}
+              : {
+                  aspectRatio: "16/9",
+                }
+          }
         />
       )}
 
       <CardContent sx={{ flex: 1, padding: 0.5, minWidth: 0 }}>
-        {!isMobile ? (
-          <>
-            {/* 시간 */}
-            <Typography gutterBottom variant="h6" sx={{ margin: "0" }}>
-              {Vtime}
-            </Typography>
-            {/* 채널 명 */}
-            <Typography gutterBottom variant="caption" noWrap>
-              {video.channelTitle}
-            </Typography>
-          </>
+        {isNull ? (
+          <Typography gutterBottom variant="body1" sx={{ margin: "0" }}>
+            영상이 없습니다.
+          </Typography>
         ) : (
           <>
-            <Typography gutterBottom variant="subtitle2" sx={{ margin: "0" }}>
-              {Vtime}
-            </Typography>
+            {!isMobile ? (
+              <>
+                {/* 시간 */}
+                <Typography gutterBottom variant="h6" sx={{ margin: "0" }}>
+                  {Vtime}
+                </Typography>
+                {/* 채널 명 */}
+                <Typography
+                  gutterBottom
+                  variant="caption"
+                  sx={{
+                    margin: "0",
+                    display: "block",
+                  }}
+                  noWrap
+                >
+                  {video.channelTitle}
+                </Typography>
+              </>
+            ) : (
+              <>
+                <Typography
+                  gutterBottom
+                  variant="subtitle2"
+                  sx={{ margin: "0" }}
+                >
+                  {Vtime}
+                </Typography>
+                <Typography
+                  gutterBottom
+                  variant="caption"
+                  sx={{
+                    margin: "0",
+                    display: "block",
+                  }}
+                  noWrap
+                >
+                  {video.channelTitle}
+                </Typography>
+              </>
+            )}
+
+            {/* 내용 */}
             <Typography
-              gutterBottom
-              variant="caption"
-              sx={{
-                margin: "0",
-                display: "block",
-              }}
-              noWrap
+              variant="body2"
+              sx={
+                isMobile
+                  ? {
+                      fontSize: "12px",
+                      color: "text.secondary",
+                      overflow: "hidden",
+                      display: "-webkit-box",
+                      WebkitBoxOrient: "vertical",
+                      WebkitLineClamp: 2,
+                    }
+                  : {
+                      padding: 0,
+                      color: "text.secondary",
+                      overflow: "hidden",
+                      display: "-webkit-box",
+                      WebkitBoxOrient: "vertical",
+                      WebkitLineClamp: 2,
+                    }
+              }
             >
-              {video.channelTitle}
+              {video.title}
             </Typography>
           </>
         )}
-
-        {/* 내용 */}
-        <Typography
-          variant="body2"
-          sx={
-            isMobile
-              ? {
-                  fontSize: "12px",
-                  color: "text.secondary",
-                  overflow: "hidden",
-                  display: "-webkit-box",
-                  WebkitBoxOrient: "vertical",
-                  WebkitLineClamp: 2,
-                }
-              : {
-                  padding: 0,
-                  color: "text.secondary",
-                  overflow: "hidden",
-                  display: "-webkit-box",
-                  WebkitBoxOrient: "vertical",
-                  WebkitLineClamp: 2,
-                }
-          }
-        >
-          {video.title}
-        </Typography>
       </CardContent>
 
       {isMobile && (
@@ -105,11 +128,9 @@ function VideoCard({ video, isMobile }) {
           {/* 썸네일 */}
           <CardMedia
             component="img"
-            image={video.thumbnails}
-            alt={video.title}
-            sx={{
-              aspectRatio: "16/9",
-            }}
+            image={isNull ? "/MyYoudule_Logo.png" : video.thumbnails}
+            alt={isNull ? "x" : video.title}
+            sx={isNull ? {} : { aspectRatio: "16/9" }}
           />
         </Box>
       )}

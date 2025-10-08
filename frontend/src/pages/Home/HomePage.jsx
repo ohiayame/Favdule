@@ -7,6 +7,7 @@ import { useAuthStore } from "@/store/auth";
 import { useTheme, useMediaQuery } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
+import Typography from "@mui/material/Typography";
 
 function Home() {
   const theme = useTheme();
@@ -69,6 +70,18 @@ function Home() {
 
   return (
     <Layout title="Home" groupId={groupId} onFilterChange={handleGroup}>
+      <Typography
+        gutterBottom
+        variant="body2"
+        sx={{
+          marginTop: "5px",
+          padding: 0,
+          color: "text.secondary",
+        }}
+      >
+        Youtuber를 등록해서 스케줄을 확인해 볼까요?
+      </Typography>
+
       <Grid
         container
         rowSpacing={1}
