@@ -122,7 +122,7 @@ function GroupsPage() {
           color: "text.secondary",
         }}
       >
-        자기만의 Group를 만들어 볼까요?
+        나만의 Group를 만들어 볼까요?
       </Typography>
 
       {/* 사용자의 그룹 출력 */}
