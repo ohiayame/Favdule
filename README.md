@@ -13,6 +13,9 @@
 소속사 / 개인 여부와 관계없이, 내가 선택한 채널만 그룹으로 묶어  
 어제 · 오늘 · 내일의 영상을 간편하게 확인할 수 있습니다.
 
+# 현제 로그인기능 중지
+　- 배포환경이 구축되면 시동예정
+
 ## 🎥 서비스 UPL : https://myyoudule.onrender.com/
   My Youdule help page : https://myyoudule.onrender.com/help
 

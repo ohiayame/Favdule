@@ -30,11 +30,11 @@ export const RouterData = [
     link: "/search",
     icon: <ManageSearchIcon />,
   },
-  {
-    // GoogleLogin callback
-    element: <CallbackPage />,
-    link: "/callback",
-  },
+  // {
+  //   // GoogleLogin callback
+  //   element: <CallbackPage />,
+  //   link: "/callback",
+  // },
   {
     // help
     element: <HelpPage />,

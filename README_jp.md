@@ -13,6 +13,9 @@
 所属事務所 / 個人に関係なく、自分が選んだチャンネルだけをグループ化して  
 昨日・今日・明日の配信を簡単にチェックできます。
 
+# 現在、ログイン機能閉鎖中
+　- デプロイ環境が整い次第再開予定
+
 ## 🎥 サービス URL : https://myyoudule.onrender.com/
   My Youdule help page : https://myyoudule.onrender.com/help
   

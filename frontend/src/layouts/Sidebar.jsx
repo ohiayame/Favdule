@@ -23,8 +23,8 @@ function Sidebar() {
   const DrawerList = (
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
       {/* 로그인 정보 */}
-      <Login />
-      <Divider />
+      {/* <Login />
+      <Divider /> */}
       <nav>
         <List>
           {RouterData.map(

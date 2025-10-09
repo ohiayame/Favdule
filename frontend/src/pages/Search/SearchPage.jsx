@@ -98,7 +98,7 @@ function SearchPage() {
       </Paper>
 
       {/* 검색 결과 출력 */}
-      {!channels && <p> 로그인 시 구독 중인 채널이 표시됩니다.</p>}
+      {/* {!channels && <p> 로그인 시 구독 중인 채널이 표시됩니다.</p>} */}
       <Box sx={{ flexGrow: 1, width: "100%" }}>
         {channels && channels.length > 0 && (
           <List>
