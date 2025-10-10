@@ -114,6 +114,7 @@ export default function HelpPage() {
                 </Typography>
               </CardContent>
             </Card>
+            Privacy Policy : <a href="/privacy">privacy policy</a>
           </Section>
 
           {/* 3. 메인(Home) */}

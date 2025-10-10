@@ -1,4 +1,5 @@
 import Header from "@/layouts/Header";
+import Footer from "@/layouts/Footer";
 
 function Layout({ title, children, groupId, onFilterChange }) {
   return (
@@ -6,6 +7,8 @@ function Layout({ title, children, groupId, onFilterChange }) {
       <Header title={title} groupId={groupId} onFilterChange={onFilterChange} />
 
       <main>{children}</main>
+
+      <Footer />
     </>
   );
 }

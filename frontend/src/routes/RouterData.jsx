@@ -7,6 +7,7 @@ import HelpPage from "@/pages/Help/HelpPage";
 import HomeIcon from "@mui/icons-material/Home";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import ManageSearchIcon from "@mui/icons-material/ManageSearch";
+import PrivacyPolicy from "../pages/Privacy/PrivacyPolicy";
 
 export const RouterData = [
   {
@@ -39,5 +40,9 @@ export const RouterData = [
     // help
     element: <HelpPage />,
     link: "/help",
+  },
+  {
+    element: <PrivacyPolicy />,
+    link: "/privacy",
   },
 ];
