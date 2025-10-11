@@ -8,6 +8,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import ManageSearchIcon from "@mui/icons-material/ManageSearch";
 import PrivacyPolicy from "../pages/Privacy/PrivacyPolicy";
+import TermsOfUse from "../pages/TermsOfUse/TermsOfUse";
 
 export const RouterData = [
   {
@@ -44,5 +45,9 @@ export const RouterData = [
   {
     element: <PrivacyPolicy />,
     link: "/privacy",
+  },
+  {
+    element: <TermsOfUse />,
+    link: "/termsOfUse",
   },
 ];
