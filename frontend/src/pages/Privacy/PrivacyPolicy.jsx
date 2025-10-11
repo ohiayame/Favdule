@@ -1,10 +1,5 @@
 import { useState } from "react";
-import {
-  Container,
-  Divider,
-  Button,
-  Stack,
-} from "@mui/material";
+import { Container, Divider, Button, Stack } from "@mui/material";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 
 import { textJa } from "./privacyLang/textJa.jsx";
@@ -14,7 +9,7 @@ import { textEn } from "./privacyLang/textEn.jsx";
 export default function PrivacyPolicy({
   appName = "MyYoudule",
   contactEmail = "aym00124@g.yju.ac.kr",
-  lastUpdated = "2025-10-10",
+  lastUpdated = "2025-10-11",
 }) {
   const [lang, setLang] = useState("ja");
   const t = lang === "ko" ? textKo : lang === "en" ? textEn : textJa;

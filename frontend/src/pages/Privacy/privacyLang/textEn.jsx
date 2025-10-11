@@ -86,8 +86,8 @@ export const textEn = {
           3. Information Collected
         </Typography>
         <Typography variant="body1" paragraph>
-          This Service may process the following publicly available information
-          (including when using login functions):
+          This Service collects, stores, and uses the following information
+          obtained via the YouTube API:
         </Typography>
         <List dense>
           <ListItem disableGutters>

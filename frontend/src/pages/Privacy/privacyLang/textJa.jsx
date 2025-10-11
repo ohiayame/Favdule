@@ -86,7 +86,8 @@ export const textJa = {
           3. 収集する情報
         </Typography>
         <Typography variant="body1" paragraph>
-          本サービスは、以下のような公開情報を処理する場合があります（OAuthログイン機能を利用する場合を含む）。
+          本サービスは、YouTube API
+          Servicesを通じて以下の情報を取得・利用します。
         </Typography>
         <List dense>
           <ListItem disableGutters>

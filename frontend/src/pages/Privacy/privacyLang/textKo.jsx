@@ -84,8 +84,8 @@ export const textKo = {
           3. 수집하는 정보
         </Typography>
         <Typography variant="body1" paragraph>
-          본 서비스는 다음과 같은 공개 정보를 처리할 수 있습니다 (OAuth 로그인
-          기능을 사용하는 경우 포함).
+          본 서비스는 YouTube API Services를 통해 이하의 정보를
+          수집・이용합니다.
         </Typography>
         <List dense>
           <ListItem disableGutters>
