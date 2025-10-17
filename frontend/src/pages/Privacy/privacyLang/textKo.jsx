@@ -83,27 +83,51 @@ export const textKo = {
         <Typography variant="h5" fontWeight={700} gutterBottom>
           3. 수집하는 정보
         </Typography>
+
         <Typography variant="body1" paragraph>
-          본 서비스는 YouTube API Services를 통해 이하의 정보를
-          수집・이용합니다.
+          본 서비스는 YouTube API Services 및 Google OAuth를 통해 다음의 정보를
+          수집・이용하며, 일부 정보는 사용자 식별 및 개인화 기능 제공을 위해
+          저장됩니다.
         </Typography>
+
         <List dense>
           <ListItem disableGutters>
-            <ListItemText primary="• 채널 ID 및 채널명" />
+            <ListItemText primary="• 사용자가 선택한 YouTube 채널의 채널 ID 및 채널명" />
           </ListItem>
           <ListItem disableGutters>
-            <ListItemText primary="• 동영상 ID, 제목, 썸네일, 설명, 공개 상태" />
+            <ListItemText primary="• 각 채널의 공개 동영상 ID, 제목, 썸네일, 설명, 공개 상태" />
           </ListItem>
           <ListItem disableGutters>
-            <ListItemText primary="• 라이브 방송의 예정/시작/종료 시각 등 공개 메타데이터" />
+            <ListItemText primary="• 라이브 방송의 예정·시작·종료 시각 등 공개 메타데이터" />
           </ListItem>
           <ListItem disableGutters>
-            <ListItemText primary="• (선택) OAuth 로그인 시 최소 범위 내 사용자 식별자" />
+            <ListItemText primary="• Google OAuth 로그인 시 제공되는 사용자 정보: google_id, 이메일(email), 이름(name), 프로필 이미지 URL(picture_url)" />
           </ListItem>
         </List>
+
+        <Typography variant="body1" paragraph sx={{ mt: 2 }}>
+          위의 OAuth 로그인 정보는 사용자의 계정 식별 및 ‘내 구독 채널 표시’,
+          ‘즐겨찾기 저장’ 등 개인화 기능을 제공하기 위한 목적으로만 사용됩니다.
+          해당 데이터는 서비스 데이터베이스에 안전하게 저장되며, 외부로 공유되지
+          않습니다.
+        </Typography>
+
+        <Typography variant="body1" paragraph>
+          사용자는 언제든지{" "}
+          <Link
+            href="https://myaccount.google.com/permissions"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Google 계정 권한 관리 페이지
+          </Link>
+          에서 본 서비스의 접근 권한을 취소할 수 있으며, 탈퇴 시 모든 관련
+          로그인 정보(google_id, email, name, picture_url)는 즉시 삭제됩니다.
+        </Typography>
+
         <Typography variant="body2" color="text.secondary">
           ※ 본 서비스는 필요한 최소한의 데이터만 요청하며, 비공개 영상이나
-          비공개 콘텐츠를 저장하거나 접근하지 않습니다.
+          비공개 콘텐츠에는 접근하지 않습니다.
         </Typography>
       </Box>
 

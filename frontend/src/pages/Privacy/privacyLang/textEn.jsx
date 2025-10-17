@@ -85,27 +85,51 @@ export const textEn = {
         <Typography variant="h5" fontWeight={700} gutterBottom>
           3. Information Collected
         </Typography>
+
         <Typography variant="body1" paragraph>
-          This Service collects, stores, and uses the following information
-          obtained via the YouTube API:
+          This Service collects and uses the following information through the
+          YouTube API Services and Google OAuth. Some user information is stored
+          to identify accounts and provide personalized features.
         </Typography>
+
         <List dense>
           <ListItem disableGutters>
-            <ListItemText primary="• Channel ID and channel name" />
+            <ListItemText primary="• Channel ID and channel name of selected YouTube channels" />
           </ListItem>
           <ListItem disableGutters>
-            <ListItemText primary="• Video ID, title, thumbnail, description, and visibility status" />
+            <ListItemText primary="• Public video metadata including video ID, title, thumbnail, description, and visibility status" />
           </ListItem>
           <ListItem disableGutters>
-            <ListItemText primary="• Public metadata such as scheduled, start, and end times of live streams" />
+            <ListItemText primary="• Public livestream metadata such as scheduled, start, and end times" />
           </ListItem>
           <ListItem disableGutters>
-            <ListItemText primary="• (Optional) Minimal user identifier when using OAuth login" />
+            <ListItemText primary="• When signing in with Google OAuth: google_id, email, name, and picture_url (profile image URL)" />
           </ListItem>
         </List>
+
+        <Typography variant="body1" paragraph sx={{ mt: 2 }}>
+          These OAuth login details are used solely to identify user accounts
+          and provide personalized functions such as displaying favorite
+          channels or saved schedules. The data is securely stored in the
+          service database and is never shared with third parties.
+        </Typography>
+
+        <Typography variant="body1" paragraph>
+          Users may revoke this Service’s access at any time through the{" "}
+          <Link
+            href="https://myaccount.google.com/permissions"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Google Account Permissions page
+          </Link>
+          . When an account is deleted, all related login data (google_id,
+          email, name, picture_url) will be permanently removed.
+        </Typography>
+
         <Typography variant="body2" color="text.secondary">
-          ※ This Service only requests the minimum data required and does not
-          access or store any private or non-public video content.
+          ※ This Service only requests the minimum data necessary and does not
+          access or store any private or unlisted video content.
         </Typography>
       </Box>
 

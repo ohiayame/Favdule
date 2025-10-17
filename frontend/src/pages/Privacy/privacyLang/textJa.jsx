@@ -86,23 +86,39 @@ export const textJa = {
           3. 収集する情報
         </Typography>
         <Typography variant="body1" paragraph>
-          本サービスは、YouTube API
-          Servicesを通じて以下の情報を取得・利用します。
+          本サービスは、YouTube API ServicesおよびGoogle
+          OAuthを通じて以下の情報を収集・利用し、一部の情報はユーザー識別およびパーソナライズ機能の提供のために保存されます。
         </Typography>
         <List dense>
           <ListItem disableGutters>
-            <ListItemText primary="• チャンネルIDおよびチャンネル名" />
+            <ListItemText primary="• ユーザーが選択したYouTubeチャンネルのチャンネルIDおよびチャンネル名" />
           </ListItem>
           <ListItem disableGutters>
-            <ListItemText primary="• 動画ID、タイトル、サムネイル、説明、公開状態" />
+            <ListItemText primary="• 各チャンネルの公開動画のID、タイトル、サムネイル、説明、公開状態" />
           </ListItem>
           <ListItem disableGutters>
             <ListItemText primary="• ライブ配信の予定／開始／終了時間などの公開メタデータ" />
           </ListItem>
           <ListItem disableGutters>
-            <ListItemText primary="• （任意）OAuthログイン時に最小限のユーザー識別子" />
+            <ListItemText primary="• Google OAuthログイン時に提供されるgoogle_id、email、name、picture_url（プロフィール画像のURL）" />
           </ListItem>
         </List>
+        <Typography variant="body1" paragraph sx={{ mt: 2 }}>
+          これらの情報は、ユーザーアカウントの識別、お気に入りチャンネルの表示、配信スケジュールのパーソナライズ表示などの機能を提供する目的でのみ使用されます。
+          保存されたデータは安全に管理され、第三者に共有されることはありません。
+        </Typography>
+        <Typography variant="body1" paragraph>
+          ユーザーはいつでも{" "}
+          <Link
+            href="https://myaccount.google.com/permissions"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Googleアカウントの権限管理ページ
+          </Link>
+          から本サービスのアクセス権を取り消すことができます。アカウント削除時には、関連するすべてのログイン情報（google_id,
+          email, name, picture_url）が直ちに削除されます。
+        </Typography>
         <Typography variant="body2" color="text.secondary">
           ※
           本サービスは、必要最小限のデータのみを取得し、非公開動画やプライベートコンテンツを保存・取得することはありません。
