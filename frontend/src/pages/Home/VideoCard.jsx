@@ -27,7 +27,10 @@ function VideoCard({ video, isMobile, isNull }) {
           alt={isNull ? "x" : video.title}
           sx={
             isNull
-              ? {}
+              ? {
+                  aspectRatio: "16/9",
+                  objectFit: "contain",
+                }
               : {
                   aspectRatio: "16/9",
                 }
@@ -130,7 +133,14 @@ function VideoCard({ video, isMobile, isNull }) {
             component="img"
             image={isNull ? "/MyYoudule_Logo.png" : video.thumbnails}
             alt={isNull ? "x" : video.title}
-            sx={isNull ? {} : { aspectRatio: "16/9" }}
+            sx={
+              isNull
+                ? {
+                    aspectRatio: "14/9",
+                    objectFit: "contain",
+                  }
+                : { aspectRatio: "16/9" }
+            }
           />
         </Box>
       )}
