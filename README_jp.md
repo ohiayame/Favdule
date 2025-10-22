@@ -5,20 +5,22 @@
 - [日本語 (Japanese)](README_jp.md)
 - [한국어 (Korean)](README.md)
 
-# My_Youdule
+# Favdule
 
-<img src="./frontend/public/MyYoudule_Logo.png" alt="MyYoudule Logo" width="400"/>
+<img src="./frontend/public/favdule_logo.png" alt="Favdule Logo" width="400"/>
 
 好きな YouTuber の配信スケジュールを一目で確認できる Web サービスです。  
 所属事務所 / 個人に関係なく、自分が選んだチャンネルだけをグループ化して  
 昨日・今日・明日の配信を簡単にチェックできます。
 
 # 現在、ログイン機能閉鎖中
-　- デプロイ環境が整い次第再開予定
 
-## 🎥 サービス URL : https://myyoudule.onrender.com/
-  My Youdule help page : https://myyoudule.onrender.com/help
-  
+- デプロイ環境が整い次第再開予定
+
+## 🎥 サービス URL : https://favdule.onrender.com/
+
+Favdule help page : https://favdule.onrender.com/help
+
 ## 🚀 主な機能
 
 ### 1. ホーム(Home)
@@ -27,8 +29,8 @@
 - 選択したグループのチャンネル配信スケジュールを表示（昨日/今日/明日）
 - 配信カードをクリックすると YouTube に移動
 
-| Web                                            | Mobile                                                |
-| ---------------------------------------------- | ----------------------------------------------------- |
+| Web                                              | Mobile                                                 |
+| ------------------------------------------------ | ------------------------------------------------------ |
 | ![imgHome](./frontend/public/assets/imgHome.png) | ![mobile](./frontend/public/assets/imgHome-mobile.png) |
 
 ### 2. グループ(Groups)
@@ -95,12 +97,12 @@ project/
 ```
 
 ---
+
 ## 🗄️ データベース設計 (ERD)
 
-下記は本プロジェクトのER図です。
+下記は本プロジェクトの ER 図です。
 <img src="./frontend/public/img-erd.png" alt="img10" width="400"/>
 
 ---
-
 
 ![deploy](./frontend/public/img-deploy.png)
