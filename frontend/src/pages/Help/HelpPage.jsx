@@ -77,7 +77,7 @@ export default function HelpPage() {
       >
         <Link to="/">
           <img
-            src="/MyYoudule_Logo.png"
+            src="/favdule_logo.png"
             alt="logo"
             style={{ width: "auto", height: "35px" }}
           />

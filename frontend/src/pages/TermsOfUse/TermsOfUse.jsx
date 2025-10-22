@@ -7,9 +7,9 @@ import { textKo } from "./termsLang/textKo.jsx";
 import { textEn } from "./termsLang/textEn.jsx";
 
 export default function TermsOfUse({
-  appName = "MyYoudule",
+  appName = "Favdule",
   contactEmail = "aym00124@g.yju.ac.kr",
-  lastUpdated = "2025-10-11",
+  lastUpdated = "2025-10-22",
 }) {
   const [lang, setLang] = useState("ja");
   const t = lang === "ko" ? textKo : lang === "en" ? textEn : textJa;

@@ -13,9 +13,14 @@ function Header({ title, groupId, onFilterChange }) {
         <Grid container size={6}>
           <Link to="/">
             <img
-              src="/MyYoudule_Logo.png"
+              src="/favdule_logo.png"
               alt="logo"
-              style={{ width: "auto", height: "35px", margin: "4px" }}
+              style={{
+                width: "auto",
+                height: "34px",
+                margin: "4px",
+                mt: "30px",
+              }}
             />
           </Link>
           <Tooltip placement="left-start">

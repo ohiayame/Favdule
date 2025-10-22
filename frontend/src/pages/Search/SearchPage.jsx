@@ -15,7 +15,7 @@ import ListItemText from "@mui/material/ListItemText";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
-
+import CardMedia from "@mui/material/CardMedia";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
@@ -125,14 +125,29 @@ function SearchPage() {
                     sx={{ width: 56, height: 56 }}
                   />
                 </ListItemAvatar>
-                <ListItemText
-                  primary={channel.snippet.title}
-                  sx={{
-                    "& .MuiListItemText-primary": {
-                      fontSize: "3.5vw",
-                    },
-                  }}
-                />
+                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                  <ListItemText
+                    primary={channel.snippet.title}
+                    sx={{
+                      "& .MuiListItemText-primary": {
+                        fontSize: "3.5vw",
+                      },
+                    }}
+                  />
+
+                  <CardMedia
+                    component="img"
+                    image="/yt_icon_red_digital.png"
+                    alt="youtube logo"
+                    sx={{ width: 30 }}
+                    onClick={() =>
+                      window.open(
+                        `https://www.youtube.com/channel/${channel.snippet.channelId}`,
+                        "_blank"
+                      )
+                    }
+                  />
+                </Box>
               </ListItem>
             ))}
           </List>

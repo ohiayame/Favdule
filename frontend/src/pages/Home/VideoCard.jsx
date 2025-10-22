@@ -23,7 +23,7 @@ function VideoCard({ video, isMobile, isNull }) {
         // {/* 썸네일 */}
         <CardMedia
           component="img"
-          image={isNull ? "/MyYoudule_Logo.png" : video.thumbnails}
+          image={isNull ? "/favdule_logo.png" : video.thumbnails}
           alt={isNull ? "x" : video.title}
           sx={
             isNull
@@ -47,10 +47,20 @@ function VideoCard({ video, isMobile, isNull }) {
           <>
             {!isMobile ? (
               <>
-                {/* 시간 */}
-                <Typography gutterBottom variant="h6" sx={{ margin: "0" }}>
-                  {Vtime}
-                </Typography>
+                <Box sx={{ display: "flex", alignItems: "center" }}>
+                  {/* 시간 */}
+                  <Typography gutterBottom variant="h6" sx={{ margin: "0" }}>
+                    {Vtime}
+                  </Typography>
+
+                  <CardMedia
+                    component="img"
+                    image={"/yt_icon_red_digital.png"}
+                    alt="youtube logo"
+                    sx={{ height: "30px", width: "auto" }}
+                  />
+                </Box>
+
                 {/* 채널 명 */}
                 <Typography
                   gutterBottom
@@ -66,13 +76,23 @@ function VideoCard({ video, isMobile, isNull }) {
               </>
             ) : (
               <>
-                <Typography
-                  gutterBottom
-                  variant="subtitle2"
-                  sx={{ margin: "0" }}
-                >
-                  {Vtime}
-                </Typography>
+                <Box sx={{ display: "flex", alignItems: "center" }}>
+                  {/* 시간 */}
+                  <Typography
+                    gutterBottom
+                    variant="subtitle"
+                    sx={{ margin: "0" }}
+                  >
+                    {Vtime}
+                  </Typography>
+
+                  <CardMedia
+                    component="img"
+                    image={"/yt_icon_red_digital.png"}
+                    alt="youtube logo"
+                    sx={{ height: "25px", width: "auto" }}
+                  />
+                </Box>
                 <Typography
                   gutterBottom
                   variant="caption"
@@ -131,7 +151,7 @@ function VideoCard({ video, isMobile, isNull }) {
           {/* 썸네일 */}
           <CardMedia
             component="img"
-            image={isNull ? "/MyYoudule_Logo.png" : video.thumbnails}
+            image={isNull ? "/favdule_logo.png" : video.thumbnails}
             alt={isNull ? "x" : video.title}
             sx={
               isNull

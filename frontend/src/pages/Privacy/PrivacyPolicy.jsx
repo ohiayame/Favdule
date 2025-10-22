@@ -7,9 +7,9 @@ import { textKo } from "./privacyLang/textKo.jsx";
 import { textEn } from "./privacyLang/textEn.jsx";
 
 export default function PrivacyPolicy({
-  appName = "MyYoudule",
+  appName = "Favdule",
   contactEmail = "aym00124@g.yju.ac.kr",
-  lastUpdated = "2025-10-17",
+  lastUpdated = "2025-10-22",
 }) {
   const [lang, setLang] = useState("ja");
   const t = lang === "ko" ? textKo : lang === "en" ? textEn : textJa;
