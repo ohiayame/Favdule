@@ -9,7 +9,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "https://myyoudule.onrender.com",
+    origin: "https://favdule.onrender.com",
     credentials: true,
   })
 );
