@@ -2,68 +2,68 @@
 <br>
 이 프로젝트의 README는 한국어와 일본어로 제공됩니다.
 
-- [日本語 (Japanese)](README_jp.md)
-- [한국어 (Korean)](README.md)
+- [日本語 (Japanese)](README.md)
+- [한국어 (Korean)](README_kr.md)
 
 # Favdule
 
-<img src="./frontend/public/favdule_logo.png" alt="favdule Logo" width="400"/>
+<img src="./frontend/public/favdule_logo.png" alt="Favdule Logo" width="400"/>
 
-좋아하는 YouTuber의 방송 일정을 한눈에 확인할 수 있는 웹 서비스입니다.  
-소속사 / 개인 여부와 관계없이, 내가 선택한 채널만 그룹으로 묶어  
-어제 · 오늘 · 내일의 영상을 간편하게 확인할 수 있습니다.
+好きな YouTuber の配信スケジュールを一目で確認できる Web サービスです。  
+所属事務所 / 個人に関係なく、自分が選んだチャンネルだけをグループ化して  
+昨日・今日・明日の配信を簡単にチェックできます。
 
-# 현제 로그인기능 중지
+# 現在、ログイン機能閉鎖中
 
-- 배포환경이 구축되면 시동예정
+- デプロイ環境が整い次第再開予定
 
-## 🎥 서비스 UPL : https://favdule.onrender.com/
+## 🎥 サービス URL : https://favdule.onrender.com/
 
-My Youdule help page : https://favdule.onrender.com/help
+Favdule help page : https://favdule.onrender.com/help
 
-## 🚀 주요 기능
+## 🚀 主な機能
 
-### 1. 홈(Home)
+### 1. ホーム(Home)
 
-- 그룹 필터링 (드롭다운으로 그룹 선택)
-- 선택된 그룹의 채널 영상 일정 표시 (어제/오늘/내일)
-- 영상 카드를 클릭하면 유튜브로 바로 이동
+- グループフィルタリング（ドロップダウンでグループ選択）
+- 選択したグループのチャンネル配信スケジュールを表示（昨日/今日/明日）
+- 配信カードをクリックすると YouTube に移動
 
-| Web                                            | mobile                                                |
-| ---------------------------------------------- | ----------------------------------------------------- |
-| ![img10](./frontend/public/assets/imgHome.png) | ![img10](./frontend/public/assets/imgHome-mobile.png) |
+| Web                                              | Mobile                                                 |
+| ------------------------------------------------ | ------------------------------------------------------ |
+| ![imgHome](./frontend/public/assets/imgHome.png) | ![mobile](./frontend/public/assets/imgHome-mobile.png) |
 
-### 2. 그룹(Groups)
+### 2. グループ(Groups)
 
-- **비회원**: 4개의 그룹까지 사용 가능
-- **회원**: 무제한 그룹 생성 가능
-- 그룹명 수정 (연필 아이콘), 그룹 삭제 (버튼/휴지통 아이콘)
-- 등록된 채널 삭제 가능
+- **非会員**: 4 つのグループを利用可能
+- **会員**: 無制限でグループを作成可能
+- グループ名編集（鉛筆アイコン）、グループ削除（ボタン）
+- 登録済みチャンネルの削除が可能（ゴミ箱アイコン
 
 <img src="./frontend/public/assets/imgGroups.png" alt="imgGroups" width="400"/>
 
-### 3. 검색(Search)
+### 3. 検索(Search)
 
-- 채널명 검색 후 그룹에 추가
-- 추가 버튼으로 그룹에 저장
-- 회원은 구글 계정의 구독 채널 15개 자동 조회 가능
+- チャンネル名を検索してグループに追加
+- 追加ボタンでグループに保存
+- 会員は Google アカウントの登録チャンネル 15 件を自動取得可能
 
 <img src="./frontend/public/assets/imgSearch.png" alt="imgSearch" width="400"/>
 
-### 4. 페이지 이동 / 로그인
+### 4. ページ移動 / ログイン
 
-- 메뉴 → 사이드 네비게이션(Home / Groups / Search)
-- 상단 `로그인하기` 버튼으로 로그인 가능
-- Google 계정 로그인
-- 로그인 시 그룹/채널이 계정에 안전하게 저장됨
+- メニュー → サイドナビゲーション(Home / Groups / Search)
+- 上部の `ログイン` ボタンからログイン可能
+- Google アカウントでのログインに対応
+- ログイン時、グループ/チャンネルがアカウントに安全に保存される
 
 <img src="./frontend/public/assets/img10.png" alt="img10" width="400"/>
 
 ---
 
-## 🛠️ 기술 스택
+## 🛠️ 技術スタック
 
-| 구분         | 기술                                       |
+| 区分         | 技術                                       |
 | ------------ | ------------------------------------------ |
 | **Frontend** | React, Vite, CSS, MUI                      |
 | **Backend**  | Node.js (Express), MySQL                   |
@@ -74,35 +74,35 @@ My Youdule help page : https://favdule.onrender.com/help
 
 ---
 
-## ⚙️ 프로젝트 구조 (Project Structure)
+## ⚙️ プロジェクト構成 (Project Structure)
 
 ```
 project/
-├── backend/              # Express 서버
+├── backend/              # Express サーバー
 │   └── src/
-│        ├── controllers/      # 기능별 로직
-│        ├── routes/           # API 엔드포인트
-│        ├── models/           # 데이터베이스 쿼리 모듈 (직접 SQL 사용)
-│        └── config/           # DB 접속 설정
+│        ├── controllers/      # 機能別ロジック
+│        ├── routes/           # APIエンドポイント
+│        ├── models/           # データベースクエリモジュール (直接SQLを使用)
+│        └── config/           # DB接続設定
 │
 ├── frontend/           # React
-│   ├── public/           # 이미지
+│   ├── public/           # 画像
 │   └── src/
-│        ├── api/              # backend API 호출
-│        ├── pages/            # 실제 라우팅되는 페이지
-│        ├── components/       # 로그인 컴포넌트
-│        ├── stores/           # 상태 관리 (예: user store)
-│        ├── router/           # Router 설정
-│        └── layouts/          # 공통 컴포넌트
+│        ├── api/              # backend API 呼び出し
+│        ├── pages/            # ルーティングされるページ
+│        ├── components/       # ログインコンポーネント
+│        ├── stores/           # 状態管理 (例: user store)
+│        ├── router/           # Router設定
+│        └── layouts/          # 共通コンポーネント
 ```
 
 ---
 
-## 🗄️ 데이터베이스 설계 (ERD)
+## 🗄️ データベース設計 (ERD)
 
-아래는 본 프로젝트의 ERD입니다.
+下記は本プロジェクトの ER 図です。
 <img src="./frontend/public/img-erd.png" alt="img10" width="400"/>
 
 ---
 
-![img10](./frontend/public/img-deploy.png)
+![deploy](./frontend/public/img-deploy.png)
