@@ -29,7 +29,7 @@ export const getOrCreateChannelsIdANDgetGroups = async (req, res) => {
   const user_id = req.body.user_id;
 
   const channel_id = await channelService.GetChannelId(channel);
-  const groups = await groupService.GetSelectGroups(user_id, channel_id);
+  const groups = await groupService.getSelectGroups(user_id, channel_id);
 
   // 저장 가능한 그룹과 id반환
   res.status(200).json({ groups, channel_id });
@@ -85,6 +85,6 @@ export const getGroupVideos = async (req, res) => {
   if (groupId) {
     channels = await groupService.getGroupChannels(groupId);
   }
-  const resList = channelService.getGroupVideos(channels);
+  const resList = await channelService.getGroupVideos(channels);
   res.status(200).json(resList);
 };

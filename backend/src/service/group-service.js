@@ -18,7 +18,7 @@ export const getUserGroups = async (userId) => {
 // ---------------------------------------------------------
 // 채널이 없는 그룹 조회
 // ---------------------------------------------------------
-export const GetSelectGroups = async (user_id, channel_id) => {
+export const getSelectGroups = async (user_id, channel_id) => {
   // 채널이 없는 사용자 그룹 조회
   const groups = await GetSelectGroups(user_id, channel_id);
 

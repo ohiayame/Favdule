@@ -5,7 +5,7 @@ import {
   AddGroupChannels,
   DeleteGroupChannel,
 } from "../models/channels.js";
-import { searchVideos, v_info } from "../controllers/youtubeController.js";
+import { searchVideos, v_info } from "./youtube-service.js";
 import { addDays } from "date-and-time";
 
 // ---------------------------------------------------------

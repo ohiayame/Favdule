@@ -1,7 +1,7 @@
 import { GetUserData, AddUser } from "../models/user.js";
 import { AddGroup } from "../models/groups.js";
 
-export const GetUserData = async (profileData) => {
+export const getUserData = async (profileData) => {
   // 사용자가 존재하는지 조회
   let user = await GetUserData(profileData.id);
 
