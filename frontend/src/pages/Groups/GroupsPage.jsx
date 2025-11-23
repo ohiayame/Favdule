@@ -105,7 +105,7 @@ function GroupsPage() {
       setGroupId(null);
       setGroupName("newGroup");
       if (deleted) {
-        console.log("삭제 됨");
+        // console.log("삭제 됨");
         await fetchGroups();
       }
     }

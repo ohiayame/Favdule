@@ -8,7 +8,7 @@ function DayContainer({ day, videos, isMobile }) {
     tomorrow: "#fde8ffff",
   };
   const len = videos.length;
-  console.log(len);
+
   return (
     <div
       style={{
@@ -25,12 +25,7 @@ function DayContainer({ day, videos, isMobile }) {
       </div>
       {/* 영상의 갯수 만큼 카드컨테이너 출력 */}
       {len === 1 ? (
-        <VideoCard
-          video={null}
-          key="x"
-          isMobile={isMobile}
-          isNull={true}
-        />
+        <VideoCard video={null} key="x" isMobile={isMobile} isNull={true} />
       ) : (
         videos
           .slice(1)

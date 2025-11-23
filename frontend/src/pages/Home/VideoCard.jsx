@@ -6,7 +6,6 @@ import Box from "@mui/material/Box";
 
 // 하나의 영상 정보 출력 카드
 function VideoCard({ video, isMobile, isNull }) {
-  console.log("isNull", isNull);
   const Vtime = video?.time.time;
   return (
     <Card
