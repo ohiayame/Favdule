@@ -17,11 +17,11 @@
 
 - 배포환경이 구축되면 시동예정
 
-## 🎥 서비스 UPL : https://favdule.onrender.com/
+## 서비스 UPL : https://favdule.onrender.com/
 
 My Youdule help page : https://favdule.onrender.com/help
 
-## 🚀 주요 기능
+## 주요 기능
 
 ### 1. 홈(Home)
 
@@ -61,7 +61,7 @@ My Youdule help page : https://favdule.onrender.com/help
 
 ---
 
-## 🛠️ 기술 스택
+## 기술 스택
 
 | 구분         | 기술                                       |
 | ------------ | ------------------------------------------ |
@@ -74,7 +74,7 @@ My Youdule help page : https://favdule.onrender.com/help
 
 ---
 
-## ⚙️ 프로젝트 구조 (Project Structure)
+## 프로젝트 구조 (Project Structure)
 
 ```
 project/
@@ -99,7 +99,7 @@ project/
 
 ---
 
-## 🗄️ 데이터베이스 설계 (ERD)
+## 데이터베이스 설계 (ERD)
 
 아래는 본 프로젝트의 ERD입니다.
 <img src="./frontend/public/img-erd.png" alt="img10" width="400"/>

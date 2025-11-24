@@ -17,11 +17,11 @@
 
 - デプロイ環境が整い次第再開予定
 
-## 🎥 サービス URL : https://favdule.onrender.com/
+## サービス URL : https://favdule.onrender.com/
 
 Favdule help page : https://favdule.onrender.com/help
 
-## 🚀 主な機能
+## 主な機能
 
 ### 1. ホーム(Home)
 
@@ -61,7 +61,7 @@ Favdule help page : https://favdule.onrender.com/help
 
 ---
 
-## 🛠️ 技術スタック
+## 技術スタック
 
 | 区分         | 技術                                       |
 | ------------ | ------------------------------------------ |
@@ -74,7 +74,7 @@ Favdule help page : https://favdule.onrender.com/help
 
 ---
 
-## ⚙️ プロジェクト構成 (Project Structure)
+## プロジェクト構成 (Project Structure)
 
 ```
 project/
@@ -99,7 +99,7 @@ project/
 
 ---
 
-## 🗄️ データベース設計 (ERD)
+## データベース設計 (ERD)
 
 下記は本プロジェクトの ER 図です。
 <img src="./frontend/public/img-erd.png" alt="img10" width="400"/>
