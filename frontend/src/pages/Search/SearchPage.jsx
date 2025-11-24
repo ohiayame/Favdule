@@ -61,7 +61,7 @@ function SearchPage() {
           color: "text.secondary",
         }}
       >
-        Youtuber를 검색해서 Group에 등록!
+        Youtuberを検索してGroupに登録しよう!
       </Typography>
 
       {/* 채널 검색 */}

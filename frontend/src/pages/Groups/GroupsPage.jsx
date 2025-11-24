@@ -122,7 +122,7 @@ function GroupsPage() {
           color: "text.secondary",
         }}
       >
-        나만의 Group를 만들어 볼까요?
+        自分だけのチャンネルリストを作ろう！
       </Typography>
 
       {/* 사용자의 그룹 출력 */}

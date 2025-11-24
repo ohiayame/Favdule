@@ -47,7 +47,7 @@ function Home() {
           color: "text.secondary",
         }}
       >
-        Youtuber를 등록해서 스케줄을 확인해 볼까요?
+        Youtuberを登録してスケジュールを確認しよう‼
       </Typography>
 
       <Grid

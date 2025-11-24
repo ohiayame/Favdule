@@ -40,7 +40,7 @@ function VideoCard({ video, isMobile, isNull }) {
       <CardContent sx={{ flex: 1, padding: 0.5, minWidth: 0 }}>
         {isNull ? (
           <Typography gutterBottom variant="body1" sx={{ margin: "0" }}>
-            영상이 없습니다.
+            投稿がありません
           </Typography>
         ) : (
           <>

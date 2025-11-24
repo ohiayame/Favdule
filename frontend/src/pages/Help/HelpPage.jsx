@@ -87,7 +87,7 @@ export default function HelpPage() {
         </Typography>
         <Stack direction="row" spacing={1}>
           <Button size="small" startIcon={<LaunchIcon />} href="/">
-            홈으로
+            ホームへ
           </Button>
         </Stack>
       </Stack>
@@ -99,18 +99,20 @@ export default function HelpPage() {
           <Section
             id="intro"
             icon={<HelpOutlineIcon />}
-            title="서비스 소개"
-            subtitle="좋아하는 YouTuber의 방송 일정을 한눈에. 소속사/개인 채널과 상관없이 ‘내가 고른 채널’만 모아 어제·오늘·내일 영상을 확인합니다."
+            title="サービス紹介"
+            subtitle="お気に入りのYouTuberの配信スケジュールをひと目でチェック。所属 / 個人チャンネルを問わず、『自分で選んだチャンネル』だけをまとめて、昨日・今日・明日の動画を確認できます。"
             chip="Overview"
           >
             <Card variant="outlined" sx={{ borderRadius: 2, mb: 2 }}>
               <CardContent>
                 <Typography variant="body2">
-                  • 소속사 별로 흩어진 공식 스케줄을 일일이 보지 않아도 됩니다.{" "}
+                  •
+                  YouTuberの所属事務所別のスケジュールを一つ一つ確認する必要がありません。
                   <br />
-                  • 개인 활동 유튜버의 방송 일정도 그룹으로 묶어 빠르게
-                  확인합니다. <br />• 영상 카드를 클릭하면 바로 해당 유튜브
-                  페이지로 이동합니다.
+                  •
+                  個人YouTuberの配信スケジュールもグループ化して素早くチェックできます。
+                  <br />•
+                  動画をクリックすると、すぐに該当のYouTubeページへ移動します。
                 </Typography>
               </CardContent>
             </Card>
@@ -121,8 +123,8 @@ export default function HelpPage() {
           <Section
             id="home"
             icon={<HomeIcon />}
-            title="메인 페이지 (Home)"
-            subtitle="Group별로 ‘어제 / 오늘 / 내일’의 영상을 카드 형태로 제공합니다."
+            title="メインページ（Home）"
+            subtitle="グループごとに『昨日 / 今日 / 明日』の動画をカード形式で表示します。"
             chip="Main"
           >
             <Grid container spacing={2}>
@@ -134,7 +136,7 @@ export default function HelpPage() {
                   sx={{ objectFit: "contain", width: "110px" }}
                 />
                 <Typography variant="body2">
-                  → 그룹 드롭다운에서 보고 싶은 그룹을 선택
+                  → 右上のグループドロップダウンから見たいグループを選択
                 </Typography>
                 <CardMedia
                   component="img"
@@ -146,8 +148,9 @@ export default function HelpPage() {
             </Grid>
             <br />
             <Typography variant="body1">
-              • 그룹을 바꾸면 해당 그룹에 등록된 채널의 영상만 표시됩니다.
-              <br />• 영상 카드를 클릭하면 유튜브로 이동합니다.
+              •
+              グループを変更すると、そのグループに登録されているチャンネルの動画だけが表示されます。
+              <br />• 動画をクリックするとYouTubeへ移動します。
             </Typography>
           </Section>
 
@@ -155,8 +158,8 @@ export default function HelpPage() {
           <Section
             id="groups"
             icon={<ListAltIcon />}
-            title="그룹 페이지 (Groups)"
-            subtitle="비회원은 4개 그룹까지 사용, 회원은 자유롭게 생성/수정/삭제할 수 있습니다."
+            title="グループページ（Groups）"
+            subtitle="ゲストユーザーは最大4グループまで利用可能。ログインユーザーは自由に作成・編集・削除できます。"
             chip="Management"
           >
             <CardMedia
@@ -170,7 +173,7 @@ export default function HelpPage() {
                 variant="outlined"
                 sx={{ padding: 2, paddingRight: 0, borderRadius: 2 }}
               >
-                <Typography variant="subtitle">• 공통</Typography>
+                <Typography variant="subtitle">• 共通</Typography>
                 <Grid
                   item
                   xs={12}
@@ -184,7 +187,7 @@ export default function HelpPage() {
                     sx={{ objectFit: "contain", width: "110px" }}
                   />
                   <Typography variant="body2">
-                    → 그룹 드롭다운에서 그룹을 선택
+                    → グループドロップダウンからグループを選択
                   </Typography>
                 </Grid>
 
@@ -195,7 +198,7 @@ export default function HelpPage() {
                     alt={`${IMAGES[4].alt} (이미지 ${4})`}
                     sx={{ objectFit: "contain", width: "50%" }}
                   />
-                  <Typography variant="body2">→ 그룹명 수정</Typography>
+                  <Typography variant="body2">→ グループ名の編集</Typography>
                 </Grid>
 
                 <Grid item xs={12} sm={6}>
@@ -206,13 +209,13 @@ export default function HelpPage() {
                     sx={{ objectFit: "contain", width: "25px" }}
                   />
                   <Typography variant="body2">
-                    → 그룹에 저장된 채널을 삭제
+                    → グループに保存されているチャンネルを削除
                   </Typography>
                 </Grid>
               </Card>
               {/* 회원 */}
               <Card variant="outlined" sx={{ padding: 2, borderRadius: 2 }}>
-                <Typography variant="subtitle">• 회원</Typography>
+                <Typography variant="subtitle">• ログインユーザー</Typography>
                 <Grid
                   item
                   xs={12}
@@ -226,7 +229,7 @@ export default function HelpPage() {
                     sx={{ objectFit: "contain", width: "140px" }}
                   />
                   <Typography variant="body2">
-                    → 그룹 드롭다운에서 제일 하단에 위치
+                    → グループドロップダウンの一番下に表示
                   </Typography>
                 </Grid>
 
@@ -237,13 +240,13 @@ export default function HelpPage() {
                     alt={`${IMAGES[3].alt} (이미지 ${3})`}
                     sx={{ objectFit: "contain", width: "65px" }}
                   />
-                  <Typography variant="body2">→ 그룹을 삭제</Typography>
+                  <Typography variant="body2">→ グループ削除</Typography>
                 </Grid>
               </Card>
               <Typography variant="body1">
-                • 비회원: 4개의 그룹 사용 가능 (브라우저 저장).
-                <br />• 회원: ‘+ 새로운 그룹 추가’로 무제한 생성, 모든
-                변경사항이 계정에 저장됩니다.
+                • ゲストユーザー：最大4グループまで利用可能（ブラウザ保存）
+                <br />• ログインユーザー：『＋
+                新しいグループ』で無制限に作成可能。すべての変更がアカウントに保存されます。
               </Typography>
             </Grid>
           </Section>
@@ -252,8 +255,8 @@ export default function HelpPage() {
           <Section
             id="search"
             icon={<ManageSearchIcon />}
-            title="검색 페이지 (Search)"
-            subtitle="채널을 검색해 원하는 그룹에 추가합니다. 로그인 시 ‘내 구독 채널 15개’도 빠르게 불러옵니다."
+            title="検索ページ（Search）"
+            subtitle="チャンネルを検索して好きなグループに追加できます。ログイン時は『自分の登録チャンネル15件』も素早く取得できます。"
             chip="Add Channels"
           >
             <CardMedia
@@ -270,11 +273,11 @@ export default function HelpPage() {
                   alt={`${IMAGES[6].alt} (이미지 ${6})`}
                   sx={{ objectFit: "contain", width: "150px" }}
                 />
-                <Typography variant="body2">→ 채널 검색</Typography>
+                <Typography variant="body2">→ チャンネル検索</Typography>
               </Grid>
 
               <Card variant="outlined" sx={{ padding: 2, borderRadius: 2 }}>
-                <Typography variant="subtitle">• 채널 추가</Typography>
+                <Typography variant="subtitle">• チャンネル追加</Typography>
                 <Grid
                   item
                   xs={12}
@@ -282,7 +285,7 @@ export default function HelpPage() {
                   sx={{ marginTop: "10px", marginBottom: "4px" }}
                 >
                   <Typography variant="body2">
-                    1. 채널 카드의 ‘추가’ 아이콘 클릭
+                    1. チャンネルカードの『追加』アイコンをクリック
                   </Typography>
                   <CardMedia
                     component="img"
@@ -293,7 +296,8 @@ export default function HelpPage() {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <Typography variant="body2">
-                    2. 그룹 선택 <br />→ ‘추가’ 버튼으로 저장
+                    2. グループを選択
+                    <br />→ 『追加』ボタンで保存
                   </Typography>
                   <CardMedia
                     component="img"
@@ -310,14 +314,14 @@ export default function HelpPage() {
           <Section
             id="navigation"
             icon={<MenuIcon />}
-            title="페이지 이동"
-            subtitle="메뉴 → 사이드 네비게이션에서 페이지를 선택합니다."
+            title="ページ移動"
+            subtitle="画面右上メニュー → サイドナビゲーションからページを選択します。"
             chip="Navigation"
           >
             <Grid container spacing={2}>
               <Card variant="outlined" sx={{ padding: 2, borderRadius: 2 }}>
                 <Grid item xs={12} sm={6} sx={{ marginBottom: "20px" }}>
-                  <Typography variant="body2">1. 메뉴 버튼</Typography>
+                  <Typography variant="body2">1. メニューボタン</Typography>
                   <CardMedia
                     component="img"
                     image={IMAGES[9].src}
@@ -331,7 +335,7 @@ export default function HelpPage() {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <Typography variant="body2">
-                    2. 사이드 네비게이션(Home / Groups / Search)
+                    2. サイドナビゲーション（Home / Groups / Search）
                   </Typography>
                   <CardMedia
                     component="img"
@@ -348,13 +352,14 @@ export default function HelpPage() {
           <Section
             id="login"
             icon={<LoginIcon />}
-            title="로그인"
-            subtitle="Google 계정으로 로그인하여 그룹/채널 설정을 안전하게 저장합니다."
+            title="ログイン"
+            subtitle="Googleアカウントでログインして、グループ / チャンネル設定を安全に保存できます."
             chip="Account"
           >
             <Grid item xs={12} sm={6}>
               <Typography variant="body2">
-                메뉴 → 네비게이션 상단의 ‘로그인하기’ 버튼을 누르면 시작됩니다.
+                メニュー →
+                ナビゲーション上部の『ログイン』ボタンから開始します。
               </Typography>
               <CardMedia
                 component="img"
@@ -369,9 +374,9 @@ export default function HelpPage() {
           <Section
             id="faq"
             icon={<HelpOutlineIcon />}
-            title="문의"
-            subtitle="문제가 있으면 001aym0819@gmail.com 으로 연락주세요."
-          ></Section>
+            title="お問い合わせ"
+            subtitle="問題がある場合は aym00124@g.yju.ac.kr までご連絡ください。"
+          />
         </Grid>
       </Grid>
     </Box>

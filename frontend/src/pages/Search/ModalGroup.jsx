@@ -89,9 +89,9 @@ function ModalGroup({ channel, onClose }) {
 
   return (
     <>
-      <p>Group에 추가</p>
+      <p>チャンネルを追加するグループを選択</p>
 
-      {groups.length === 0 && <p>추가 가능한 그룹 없음</p>}
+      {groups.length === 0 && <p>追加できるグループがありません。</p>}
       {groups.length > 0 && (
         <div>
           {/* 사용자의 그룹 출력 */}
@@ -120,7 +120,7 @@ function ModalGroup({ channel, onClose }) {
             }}
             onClick={handleSubmit}
           >
-            추가
+            追加
           </Button>
         </div>
       )}

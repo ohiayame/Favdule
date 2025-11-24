@@ -115,7 +115,7 @@ function GroupChannels({ groupId }) {
           <Avatar sx={{ width: 56, height: 56 }} />
         </ListItemAvatar>
         <ListItemText
-          primary="새로운 채널 추가"
+          primary="チャンネル追加"
           sx={{
             "& .MuiListItemText-primary": {
               fontSize: "3.5vw",
