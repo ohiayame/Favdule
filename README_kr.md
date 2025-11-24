@@ -13,7 +13,7 @@
 소속사 / 개인 여부와 관계없이, 내가 선택한 채널만 그룹으로 묶어  
 어제 · 오늘 · 내일의 영상을 간편하게 확인할 수 있습니다.
 
-# 현제 로그인기능 중지
+## 현제 로그인기능 중지
 
 - 배포환경이 구축되면 시동예정
 
@@ -80,7 +80,8 @@ My Youdule help page : https://favdule.onrender.com/help
 project/
 ├── backend/              # Express 서버
 │   └── src/
-│        ├── controllers/      # 기능별 로직
+│        ├── controllers/      # 요청에 따라 호출/반환 처리
+│        ├── service/          # 기능별 로직
 │        ├── routes/           # API 엔드포인트
 │        ├── models/           # 데이터베이스 쿼리 모듈 (직접 SQL 사용)
 │        └── config/           # DB 접속 설정

@@ -13,7 +13,7 @@
 所属事務所 / 個人に関係なく、自分が選んだチャンネルだけをグループ化して  
 昨日・今日・明日の配信を簡単にチェックできます。
 
-# 現在、ログイン機能閉鎖中
+## 現在、ログイン機能閉鎖中
 
 - デプロイ環境が整い次第再開予定
 
@@ -80,7 +80,8 @@ Favdule help page : https://favdule.onrender.com/help
 project/
 ├── backend/              # Express サーバー
 │   └── src/
-│        ├── controllers/      # 機能別ロジック
+│        ├── controllers/      # リクエスト受け取り・レスポンス
+│        ├── service/          # 機能別ロジック
 │        ├── routes/           # APIエンドポイント
 │        ├── models/           # データベースクエリモジュール (直接SQLを使用)
 │        └── config/           # DB接続設定
