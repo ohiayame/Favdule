@@ -106,17 +106,14 @@ function SearchPage() {
               <ListItem
                 key={idx}
                 secondaryAction={
-                  <IconButton
-                    edge="end"
-                    aria-label="add"
-                    onClick={() => {
-                      setSelectedChannel(channel);
-                      setIsOpen(true);
-                    }}
-                  >
+                  <IconButton edge="end" aria-label="add">
                     <PlaylistAddIcon />
                   </IconButton>
                 }
+                onClick={() => {
+                  setSelectedChannel(channel);
+                  setIsOpen(true);
+                }}
               >
                 <ListItemAvatar sx={{ minWidth: 72 }}>
                   <Avatar
@@ -159,7 +156,7 @@ function SearchPage() {
         isOpen={isOpen}
         style={{
           content: {
-            width: "300px",
+            maxWidth: "300px",
             maxHeight: "270px",
             margin: "auto",
           },
