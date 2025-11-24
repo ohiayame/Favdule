@@ -34,81 +34,65 @@ export const GetChannelId = async (channel) => {
 // ---------------------------------------------------------
 // 그룹의 영상 조회
 // ---------------------------------------------------------
-// 1) 그룹의 channelId조회
 export const getGroupVideos = async (channels) => {
-  let result = null;
+  // 1) 각 채널의 최근에 업로드된 영상 10개 조회
+  const video = (
+    await Promise.all(
+      channels?.map((channel) => searchVideos(channel.channelId))
+    )
+  ).flat();
 
-  // 2) 각 채널의 최근에 업로드된 영상 10개 조회
-  const videos = await Promise.all(
-    channels?.map(async (channel) => {
-      const video = await searchVideos(channel.channelId);
-      // 3) videoId로 liveStreamingDetails를 검색해서 방송 및 방송예정 시간을 조회
-      const v_Id = video.map((v) => v.id.videoId);
-      return await v_info(v_Id);
-    })
+  let resultV = [];
+  let notNoneV = [];
+  // 2) snippet.liveBroadcastContent 상태가 none이면 바로 resultV에 추가
+  //    아니면 notNoneV에 id 추가
+  video.forEach((v) =>
+    v.snippet.liveBroadcastContent == "none"
+      ? resultV.push(v)
+      : notNoneV.push(v.id.videoId)
   );
 
-  result = videos.flat();
-  console.log("video", result[4]);
+  // 3) snippet.liveBroadcastContent 상태가 있었던 video의
+  // 상세 정보 조회후 resultV에 추가
+  if (notNoneV.length > 0) resultV.push(...(await v_info(notNoneV)));
+  // console.log(resultV[19]);
 
-  // 4) 시간축이로 정렬
-  // - 방송시작 후면 actualStartTime
-  // - 방송예정이면 scheduledStartTime
-  // - liveStreamingDetails 없는 영상
-  const sortV_li = result.sort(
-    (a, b) =>
-      new Date(
-        a.liveStreamingDetails?.actualStartTime ??
-          a.liveStreamingDetails?.scheduledStartTime ??
-          a.snippet?.publishedAt
-      ) -
-      new Date(
-        b.liveStreamingDetails?.actualStartTime ??
-          b.liveStreamingDetails?.scheduledStartTime ??
-          b.snippet?.publishedAt
-      )
-  );
 
-  // 필요한 정보 추출 후 저장
-  let pushVideo = [];
+  // 4) 데이터 수정, 추출 후 저장
+  const pushVideo = resultV.map((vi) => {
+    const time =
+      vi?.liveStreamingDetails?.actualStartTime ?? // 방송시작 후
+      vi?.liveStreamingDetails?.scheduledStartTime ?? // 방송 예정
+      vi.snippet?.publishedAt;
 
-  // 5) 데이터 수정, 추출 후 저장
-  sortV_li.map((vi) => {
     //  RFC 3339형식의 데이터에서 한국기준의 날짜와 시간을 추출 {day:"00-00", time: "00:00"}
-    const krVideoTime = getDayTime(
-      new Date(
-        vi.liveStreamingDetails?.actualStartTime ??
-          vi.liveStreamingDetails?.scheduledStartTime ??
-          vi.snippet?.publishedAt
-      )
-    );
+    const krVideoTime = getDayTime(new Date(time));
     // console.log("krVideoTime", krVideoTime);
 
-    // 6) 데이터 정리 후 저장
-    // 체널 이름, 영상 제목, 썸네일, 시간({date:"00-00", time: "00:00"})
-    pushVideo.push({
-      id: vi.id,
-      channelTitle: vi.snippet.channelTitle,
-      title: vi.snippet.localized.title,
-      thumbnails: vi.snippet.thumbnails.medium.url,
-      time: krVideoTime,
-    });
+    // 5) 데이터 정리 후 저장
+    return {
+      id: vi.id?.videoId ?? vi.id, // videoId
+      channelTitle: vi.snippet.channelTitle, // 채널 이름
+      title: vi.snippet.title, // 제목
+      thumbnails: vi.snippet.thumbnails.medium.url, // 썸네일
+      originTime: new Date(time), // 시간
+      time: krVideoTime, // {day:"00-00", time: "00:00"}
+      liveBroadcastContent: vi.snippet.liveBroadcastContent, // 'none','upcoming','live'
+    };
   });
 
-  // 7) 날짜 계산
+  // 3) 시간축이로 정렬
+  pushVideo.sort((a, b) => a.originTime - b.originTime);
+
+  // 6) 날짜 계산
   const now = new Date(); // 현재
-  // console.log("today");
   const today = getDayTime(now); // 오늘 {day:"00-00", time: "00:00"}
-  // console.log("minDay");
   const minDay = getDayTime(addDays(now, -1)); // 어제 {day:"00-00", time: "00:00"}
-  // console.log("maxDay");
-  const maxDay = getDayTime(addDays(now, +1)); // // 내일 {day:"00-00", time: "00:00"}
+  const maxDay = getDayTime(addDays(now, +1)); // 내일 {day:"00-00", time: "00:00"}
 
-  // 8) 어제, 오늘 내일로 분할
+  // 7) 어제, 오늘 내일로 분할
   const resList = { yesterday: [minDay], today: [today], tomorrow: [maxDay] }; // 반환할 객체
-
-  pushVideo.map((vi) => {
-    // 날짜가 같은 데에 추가
+  pushVideo.forEach((vi) => {
     if (minDay.date === vi.time.date) {
       resList.yesterday.push(vi);
     } else if (today.date === vi.time.date) {
@@ -117,7 +101,7 @@ export const getGroupVideos = async (channels) => {
       resList.tomorrow.push(vi);
     }
   });
-  console.log("result", resList);
+
   return resList;
 };
 
