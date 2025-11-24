@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getChannelsIdANDGroup, postGroupsChannel } from "@/api/groupsApi";
 import { useAuthStore } from "@/store/auth";
+import { useVideosStore } from "@/store/video";
 
 import Button from "@mui/material/Button";
 
@@ -9,6 +10,7 @@ function ModalGroup({ channel, onClose }) {
   const [selectedGroups, setSelectedGroups] = useState([]);
   const [channel_id, setChannel_id] = useState();
   const user = useAuthStore((state) => state.user);
+  const { setVideos } = useVideosStore();
   const groupData = JSON.parse(localStorage.getItem("groupData"));
 
   // 1) 사용자 그룹 조회
@@ -79,6 +81,10 @@ function ModalGroup({ channel, onClose }) {
         onClose();
       }
     }
+    selectedGroups.map(async (g_id) => {
+      await setVideos(g_id);
+      console.log("g_id");
+    });
   };
 
   return (

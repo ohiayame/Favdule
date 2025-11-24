@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { getGroupChannels, deleteChannel } from "@/api/groupsApi";
 import { Navigate } from "react-router-dom";
 import { useAuthStore } from "@/store/auth";
+import { useVideosStore } from "@/store/video";
 
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
@@ -15,6 +16,7 @@ import AddIcon from "@mui/icons-material/Add";
 
 function GroupChannels({ groupId }) {
   const user = useAuthStore((state) => state.user);
+  const { setVideos } = useVideosStore();
   const groupData = JSON.parse(localStorage.getItem("groupData"));
   const [channels, setChannels] = useState([]);
   const [isClick, setClick] = useState(false);
@@ -52,6 +54,7 @@ function GroupChannels({ groupId }) {
       console.log(isDelete);
     }
     fetchChannels();
+    await setVideos(groupId);
   };
 
   const handleSearch = () => {
@@ -104,7 +107,7 @@ function GroupChannels({ groupId }) {
         onClick={handleSearch}
         secondaryAction={
           <IconButton edge="end">
-            <AddIcon />  
+            <AddIcon />
           </IconButton>
         }
       >

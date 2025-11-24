@@ -3,13 +3,12 @@ import { immer } from "zustand/middleware/immer";
 import { getVideos } from "@/api/groupsApi";
 import { useAuthStore } from "./auth";
 
-const groupData = JSON.parse(localStorage.getItem("groupData"));
-
 export const useVideosStore = create(
   immer((set, get) => ({
     videos: {},
 
     setVideos: async (g_id) => {
+      const groupData = JSON.parse(localStorage.getItem("groupData"));
       let res = null;
       if (useAuthStore.getState().user) {
         res = await getVideos(g_id, null);
