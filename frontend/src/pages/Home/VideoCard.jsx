@@ -47,6 +47,14 @@ function VideoCard({ video, isMobile, isNull }) {
             {!isMobile ? (
               <>
                 <Box sx={{ display: "flex", alignItems: "center" }}>
+                  {video.liveBroadcastContent == "live" && (
+                    <CardMedia
+                      component="img"
+                      image={"/live.png"}
+                      alt="live logo"
+                      sx={{ height: "20px", width: "auto" }}
+                    />
+                  )}
                   {/* 시간 */}
                   <Typography gutterBottom variant="h6" sx={{ margin: "0" }}>
                     {Vtime}
@@ -76,6 +84,14 @@ function VideoCard({ video, isMobile, isNull }) {
             ) : (
               <>
                 <Box sx={{ display: "flex", alignItems: "center" }}>
+                  {video.liveBroadcastContent == "live" && (
+                    <CardMedia
+                      component="img"
+                      image={"/live.png"}
+                      alt="live logo"
+                      sx={{ height: "15px", width: "auto" }}
+                    />
+                  )}
                   {/* 시간 */}
                   <Typography
                     gutterBottom
