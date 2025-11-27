@@ -35,31 +35,23 @@ export const GetChannelId = async (channel) => {
 // 그룹의 영상 조회
 // ---------------------------------------------------------
 export const getGroupVideos = async (channels) => {
+  let result = null;
+
   // 1) 각 채널의 최근에 업로드된 영상 10개 조회
-  const video = (
-    await Promise.all(
-      channels?.map((channel) => searchVideos(channel.channelId))
-    )
-  ).flat();
-
-  let resultV = [];
-  let notNoneV = [];
-  // 2) snippet.liveBroadcastContent 상태가 none이면 바로 resultV에 추가
-  //    아니면 notNoneV에 id 추가
-  video.forEach((v) =>
-    v.snippet.liveBroadcastContent == "none"
-      ? resultV.push(v)
-      : notNoneV.push(v.id.videoId)
+  const videos = await Promise.all(
+    channels?.map(async (channel) => {
+      const video = await searchVideos(channel.channelId);
+      // 2) videoId로 liveStreamingDetails를 검색해서 방송 및 방송예정 시간을 조회
+      const v_Id = video.map((v) => v.id.videoId);
+      return await v_info(v_Id);
+    })
   );
+  
+  result = videos.flat();
 
-  // 3) snippet.liveBroadcastContent 상태가 있었던 video의
-  // 상세 정보 조회후 resultV에 추가
-  if (notNoneV.length > 0) resultV.push(...(await v_info(notNoneV)));
-  // console.log(resultV[19]);
-
-
-  // 4) 데이터 수정, 추출 후 저장
-  const pushVideo = resultV.map((vi) => {
+  // 2) 데이터 수정, 추출 후 저장
+  const pushVideo = result.map((vi) => {
+    // 3) 시간 정리
     const time =
       vi?.liveStreamingDetails?.actualStartTime ?? // 방송시작 후
       vi?.liveStreamingDetails?.scheduledStartTime ?? // 방송 예정
